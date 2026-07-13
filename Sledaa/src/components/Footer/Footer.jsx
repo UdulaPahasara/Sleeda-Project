@@ -34,7 +34,7 @@ const Footer = () => {
             {/* Facebook */}
             <IconButton 
               component="a" 
-              href="#" 
+              href="facebook.com" 
               target="_blank"
               rel="noopener noreferrer"
               sx={{ width: '45px', height: '45px', border: '2px solid rgba(255, 255, 255, 0.1)', borderRadius: '50%', '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' } }}
@@ -44,7 +44,7 @@ const Footer = () => {
             {/* Instagram */}
             <IconButton 
               component="a" 
-              href="#" 
+              href="instagram.com" 
               target="_blank"
               rel="noopener noreferrer"
               sx={{ width: '45px', height: '45px', border: '2px solid rgba(255, 255, 255, 0.1)', borderRadius: '50%', '&:hover': { backgroundColor: 'rgba(255,255,255,0.1)' } }}

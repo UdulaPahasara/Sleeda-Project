@@ -12,6 +12,7 @@ import ourMemo2 from '../assets/Home/ourmemo2.webp';
 import ourMemo3 from '../assets/Home/ourmemo3.webp';
 import middleManImg from '../assets/Home/middleMan.webp';
 import aboveFooterImg from '../assets/Home/aboveFooter.webp';
+import InfoCard from '../components/common/InfoCard';
 
 const ScrollFocusReveal = ({ children, sx, delay = '0s' }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -68,7 +69,7 @@ const Home = () => {
           });
         }
       }
-    }, 8000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -332,56 +333,32 @@ const Home = () => {
         >
           
           {/* Card 1 */}
-          <Box sx={{ flexShrink: 0, scrollSnapAlign: 'center', width: '295px', height: 'auto', minHeight: '359px', backgroundColor: 'rgba(243, 243, 243, 1)', borderRadius: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: '39px', px: '20px', pb: '20px', textAlign: 'center' }}>
-            <Box sx={{ width: '56.69px', height: '56.69px', backgroundColor: 'rgba(221, 221, 221, 1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', mb: '30px' }}>
-              <img src={tokenTrustIcon} alt="Skill Development" style={{ width: '24px', height: '24px' }} />
-            </Box>
-            <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '18px', lineHeight: '18.29px', color: 'rgba(0, 0, 0, 1)', mb: '15px' }}>
-              Skill Development
-            </Typography>
-            <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: '16px', lineHeight: '20px', color: 'rgba(117, 117, 117, 1)' }}>
-              Enhance your technical expertise and leadership capabilities through professional workshops, seminars, industry presentations, and continuous learning opportunities designed to keep members ahead in an evolving engineering landscape.
-            </Typography>
-          </Box>
+          <InfoCard 
+            icon={tokenTrustIcon} 
+            title="Skill Development" 
+            description="Enhance your technical expertise and leadership capabilities through professional workshops, seminars, industry presentations, and continuous learning opportunities designed to keep members ahead in an evolving engineering landscape."
+          />
 
           {/* Card 2 */}
-          <Box sx={{ flexShrink: 0, scrollSnapAlign: 'center', width: '295px', height: 'auto', minHeight: '359px', backgroundColor: 'rgba(243, 243, 243, 1)', borderRadius: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: '39px', px: '20px', pb: '20px', textAlign: 'center' }}>
-            <Box sx={{ width: '56.69px', height: '56.69px', backgroundColor: 'rgba(221, 221, 221, 1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', mb: '30px' }}>
-              <img src={tokenTrustIcon} alt="Education & Career" style={{ width: '24px', height: '24px' }} />
-            </Box>
-            <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '18px', lineHeight: '20px', color: 'rgba(0, 0, 0, 1)', mb: '15px' }}>
-              Education & Career Guidance
-            </Typography>
-            <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: '16px', lineHeight: '20px', color: 'rgba(117, 117, 117, 1)' }}>
-              Access mentoring, career advice, networking opportunities, and guidance for engineering recognition, professional registration, and career advancement across Australia.
-            </Typography>
-          </Box>
+          <InfoCard 
+            icon={tokenTrustIcon} 
+            title="Education & Career Guidance" 
+            description="Access mentoring, career advice, networking opportunities, and guidance for engineering recognition, professional registration, and career advancement across Australia."
+          />
 
           {/* Card 3 */}
-          <Box sx={{ flexShrink: 0, scrollSnapAlign: 'center', width: '295px', height: 'auto', minHeight: '359px', backgroundColor: 'rgba(243, 243, 243, 1)', borderRadius: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: '39px', px: '20px', pb: '20px', textAlign: 'center' }}>
-            <Box sx={{ width: '56.69px', height: '56.69px', backgroundColor: 'rgba(221, 221, 221, 1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', mb: '30px' }}>
-              <img src={tokenTrustIcon} alt="Welfare & Support" style={{ width: '24px', height: '24px' }} />
-            </Box>
-            <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '18px', lineHeight: '18.29px', color: 'rgba(0, 0, 0, 1)', mb: '15px' }}>
-              Welfare & Support
-            </Typography>
-            <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: '16px', lineHeight: '20px', color: 'rgba(117, 117, 117, 1)' }}>
-              Supporting members and their families through welfare initiatives, community assistance, mentoring, and practical support during important milestones and challenging times.
-            </Typography>
-          </Box>
+          <InfoCard 
+            icon={tokenTrustIcon} 
+            title="Welfare & Support" 
+            description="Supporting members and their families through welfare initiatives, community assistance, mentoring, and practical support during important milestones and challenging times."
+          />
 
           {/* Card 4 */}
-          <Box sx={{ flexShrink: 0, scrollSnapAlign: 'center', width: '295px', height: 'auto', minHeight: '359px', backgroundColor: 'rgba(243, 243, 243, 1)', borderRadius: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', pt: '39px', px: '20px', pb: '20px', textAlign: 'center' }}>
-            <Box sx={{ width: '56.69px', height: '56.69px', backgroundColor: 'rgba(221, 221, 221, 1)', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', mb: '30px' }}>
-              <img src={tokenTrustIcon} alt="Social & Cultural" style={{ width: '24px', height: '24px' }} />
-            </Box>
-            <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '18px', lineHeight: '20px', color: 'rgba(0, 0, 0, 1)', mb: '15px' }}>
-              Social & Cultural Activities
-            </Typography>
-            <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: '16px', lineHeight: '20px', color: 'rgba(117, 117, 117, 1)' }}>
-              Celebrate Sri Lankan heritage while building lifelong friendships through family gatherings, cultural festivals, sporting events, networking functions, and community celebrations.
-            </Typography>
-          </Box>
+          <InfoCard 
+            icon={tokenTrustIcon} 
+            title="Social & Cultural Activities" 
+            description="Celebrate Sri Lankan heritage while building lifelong friendships through family gatherings, cultural festivals, sporting events, networking functions, and community celebrations."
+          />
 
         </Box>
 
