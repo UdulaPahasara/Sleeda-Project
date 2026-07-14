@@ -1,12 +1,13 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import ScrollFocusReveal from './ScrollFocusReveal';
 
 const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'left' }) => {
   // Determine if image should be on the left or right for desktop
   const isImageLeft = imagePosition === 'left';
 
   return (
-    <Box
+    <ScrollFocusReveal
       sx={{
         width: '100%',
         maxWidth: '1240px',
@@ -92,7 +93,7 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
           {description}
         </Typography>
       </Box>
-    </Box>
+    </ScrollFocusReveal>
   );
 };
 
