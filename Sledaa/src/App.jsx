@@ -6,11 +6,13 @@ import News from './pages/News.jsx';
 import Projects from './pages/Projects.jsx';
 import Gallery from './pages/Gallery.jsx';
 import SleedaTechno from './pages/SleedaTechno.jsx';
+import ScrollToTop from './components/common/ScrollToTop.jsx';
 import './App.css';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about-us" element={<AboutUs />} />
