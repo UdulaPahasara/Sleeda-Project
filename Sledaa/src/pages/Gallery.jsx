@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import galleryHeroBg from '../assets/Gallery/Galleryhero.webp';
@@ -108,6 +109,8 @@ const Gallery = () => {
               }}
             >
               <Button
+                component={Link}
+                to={item.title === "SLEDAA Techno Nite 2023" ? "/gallery/techno-nite-2023" : "#"}
                 sx={{
                   position: 'absolute',
                   bottom: '30px',
