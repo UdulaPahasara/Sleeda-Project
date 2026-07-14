@@ -6,6 +6,7 @@ import News from './pages/News.jsx';
 import Projects from './pages/Projects.jsx';
 import Gallery from './pages/Gallery.jsx';
 import SleedaTechno from './pages/SleedaTechno.jsx';
+import Committee from './pages/Committee.jsx';
 import ScrollToTop from './components/common/ScrollToTop.jsx';
 import './App.css';
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/gallery/techno-nite-2023" element={<SleedaTechno />} />
+        <Route path="/committee" element={<Committee />} />
         {/* You can add more routes here for other pages like /contact-us, etc. */}
       </Routes>
     </Router>
