@@ -4,13 +4,15 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import ScrollFocusReveal from '../components/common/ScrollFocusReveal';
-import anualHero from '../assets/AnnualReport/AnualHero.webp';
+import resourcesHero from '../assets/Resources/ResorcesHero.webp';
 import pdfIcon from '../assets/AnnualReport/pdf-icon-red.webp';
 
-const AnnualReport = () => {
-  const reports = [
-    { year: '2026', filename: '2026annualreport.pdf' },
-    { year: '2025', filename: '2025annualreport.pdf' }
+const Resources = () => {
+  const resourcesList = [
+    { title: 'Resume Tips', filename: 'xxxxxxxxxxxxxxxxxxxx' },
+    { title: 'Modern Resume Template', filename: 'xxxxxxxxxxxxxxxxxxxx' },
+    { title: 'Victorian Government Recruitment Process', filename: 'xxxxxxxxxxxxxxxxxxxx' },
+    { title: 'A Guide To Job Search In AU', filename: 'xxxxxxxxxxxxxxxxxxxx' }
   ];
 
   return (
@@ -22,7 +24,7 @@ const AnnualReport = () => {
         position: 'relative',
         width: '100%',
         minHeight: { xs: '200px', md: '370px' },
-        backgroundImage: `url(${anualHero})`,
+        backgroundImage: `url(${resourcesHero})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -57,7 +59,7 @@ const AnnualReport = () => {
             textTransform: 'uppercase',
             mb: 1
           }}>
-            ANNUAL REPORT
+            RESOURCES
           </Typography>
           <Typography sx={{
             fontFamily: 'Poppins',
@@ -68,7 +70,7 @@ const AnnualReport = () => {
             maxWidth: '667px',
             mx: 'auto'
           }}>
-            Explore SLEDAA's annual reports to learn about our achievements, financial performance, community initiatives, and the impact we've made in supporting Sri Lankan engineering diplomates across Australia.
+            Access practical guides, templates, and useful resources designed to support your professional development, career progression, and successful settlement in Australia.
           </Typography>
         </Box>
       </Box>
@@ -76,8 +78,8 @@ const AnnualReport = () => {
       {/* Content Section */}
       <Box sx={{ py: { xs: 6, md: 10 }, px: 2, backgroundColor: '#fff' }}>
         <Box sx={{ maxWidth: '959px', mx: 'auto', display: 'flex', flexDirection: 'column', gap: 4 }}>
-          {reports.map((report, index) => (
-            <ScrollFocusReveal key={report.year} delay={`${index * 0.2}s`}>
+          {resourcesList.map((resource, index) => (
+            <ScrollFocusReveal key={index} delay={`${index * 0.15}s`}>
               <Box sx={{
                 backgroundColor: 'rgba(243, 243, 243, 1)',
                 borderRadius: '15px',
@@ -86,7 +88,7 @@ const AnnualReport = () => {
               }}>
                 <IconButton 
                   component="a"
-                  href={`/${report.filename}`}
+                  href={`/${resource.filename}`}
                   download
                   sx={{ position: 'absolute', top: '15px', right: '15px', color: '#666' }}
                 >
@@ -101,13 +103,13 @@ const AnnualReport = () => {
                     color: '#000',
                     pr: { xs: 4, md: 5 }
                   }}>
-                    {report.year} Annual Report
+                    {resource.title}
                   </Typography>
                   
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <img src={pdfIcon} alt="PDF" style={{ width: '55px', height: '55px', objectFit: 'contain' }} />
                     <Typography sx={{ fontFamily: 'Poppins', fontWeight: 500, fontSize: '14px', color: '#a0a0a0' }}>
-                      {report.filename}
+                      {resource.filename}
                     </Typography>
                   </Box>
                 </Box>
@@ -122,4 +124,4 @@ const AnnualReport = () => {
   );
 };
 
-export default AnnualReport;
+export default Resources;

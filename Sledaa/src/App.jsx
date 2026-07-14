@@ -11,6 +11,7 @@ import CanSupport from './pages/CanSupport.jsx';
 import NeedSupport from './pages/NeedSupport.jsx';
 import ContactUs from './pages/ContactUs.jsx';
 import AnnualReport from './pages/AnnualReport.jsx';
+import Resources from './pages/Resources.jsx';
 import ScrollToTop from './components/common/ScrollToTop.jsx';
 import './App.css';
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/supporting-new-arrivals/need-support" element={<NeedSupport />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/annual-report" element={<AnnualReport />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </Router>
   );
