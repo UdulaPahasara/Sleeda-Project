@@ -104,7 +104,7 @@ const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={page === 'HOME' ? '/' : `/${page.toLowerCase().replace(/ /g, '-')}`}>
-                  <Typography textAlign="center" sx={{ color: 'black' }}>{page}</Typography>
+                  <Typography sx={{ textAlign: 'center', color: 'black' }}>{page}</Typography>
                 </MenuItem>
               ))}
               {/* Mobile Contact Us Button */}

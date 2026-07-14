@@ -72,7 +72,7 @@ const Committee = () => {
       <Box sx={{ flex: 1, backgroundColor: '#fff', py: { xs: '60px', md: '70px',lg:'70px' }, px: 2 }}>
         
         {/* Executive Committee Section */}
-        <ScrollFocusReveal sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: { xs: '80px', md: '120px' } }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: { xs: '80px', md: '120px' } }}>
           <Typography sx={{
             fontFamily: 'Poppins',
             fontWeight: 600,
@@ -108,23 +108,25 @@ const Committee = () => {
             Our Executive Committee consists of experienced professionals who volunteer their time and expertise to guide the association, organize programs, support members, and strengthen the engineering community across Australia.
           </Typography>
           
-          <Box 
-            component="img" 
-            src={leadershipImg} 
-            alt="Leadership Team"
-            sx={{
-              width: '100%',
-              maxWidth: '825px',
-              height: 'auto',
-              borderRadius: '20px',
-              objectFit: 'cover'
-            }}
-          />
-        </ScrollFocusReveal>
+          <ScrollFocusReveal>
+            <Box 
+              component="img" 
+              src={leadershipImg} 
+              alt="Leadership Team"
+              sx={{
+                width: '100%',
+                maxWidth: '825px',
+                height: 'auto',
+                borderRadius: '20px',
+                objectFit: 'cover'
+              }}
+            />
+          </ScrollFocusReveal>
+        </Box>
 
         {/* Meet Our Team Section */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '1260px', mx: 'auto' }}>
-          <ScrollFocusReveal sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '1260px', mx: 'auto',mt:{lg:'-60px',md:'-40px',sm:'-30px',xs:'-20px'} }}>
+          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
             <Typography sx={{
               fontFamily: 'Poppins',
               fontWeight: 600,
@@ -146,7 +148,7 @@ const Committee = () => {
             }}>
               Serving Our Community
             </Typography>
-          </ScrollFocusReveal>
+          </Box>
 
           <Box sx={{ 
             display: 'grid', 
