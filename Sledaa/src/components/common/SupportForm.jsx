@@ -14,7 +14,7 @@ const CustomInputLabel = ({ children }) => (
   </Typography>
 );
 
-const SupportForm = () => {
+const SupportForm = ({ formType = 'canSupport' }) => {
   return (
     <Box sx={{
       backgroundColor: 'rgba(243, 243, 243, 1)',
@@ -180,7 +180,9 @@ const SupportForm = () => {
       </Box>
 
       <Box sx={{ mb: 3 }}>
-        <CustomInputLabel>What areas you can help?</CustomInputLabel>
+        <CustomInputLabel>
+          {formType === 'needSupport' ? 'What help you are seeking?' : 'What areas you can help?'}
+        </CustomInputLabel>
         <TextField 
           fullWidth 
           multiline
