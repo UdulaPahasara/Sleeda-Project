@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import homeHeroBg from '../assets/Home/HomeHero.webp';
@@ -563,6 +564,8 @@ const Home = () => {
               Whether you're interested in membership, partnerships, sponsorship opportunities, or upcoming events, our team is here to help. Reach out and become part of the SLEDAA community.
             </Typography>
             <Button
+              component={Link}
+              to="/contact-us"
               sx={{
                 width: '180px',
                 height: '45px',

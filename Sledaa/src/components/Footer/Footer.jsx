@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, Link, IconButton } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 import logoImg from '../../assets/logo/logo.webp';
 import whatsappIcon from '../../assets/footer/WhatsAppIcon.webp';
@@ -59,14 +60,21 @@ const Footer = () => {
           <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '18.05px', lineHeight: '28.08px', color: '#fff', mb: 1 }}>
             Quick Links
           </Typography>
-          {['Home', 'About Us', 'Events', 'Gallery', 'Contact Us'].map((link) => (
+          {[
+            { name: 'Home', path: '/' },
+            { name: 'About Us', path: '/about-us' },
+            { name: 'Events', path: '/events' },
+            { name: 'Gallery', path: '/gallery' },
+            { name: 'Contact Us', path: '/contact-us' }
+          ].map((link) => (
             <Link 
-              key={link} 
-              href="#" 
+              key={link.name} 
+              component={RouterLink}
+              to={link.path}
               underline="none" 
               sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: '16.04px', lineHeight: '24.07px', color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#fff' } }}
             >
-              {link}
+              {link.name}
             </Link>
           ))}
         </Box>
