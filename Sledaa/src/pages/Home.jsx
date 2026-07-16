@@ -81,7 +81,7 @@ const Home = () => {
       {/* Override Navbar styles for this specific page without modifying Navbar.jsx */}
       <Box
         sx={{
-          position: 'absolute',
+          position: 'fixed',
           top: 0,
           left: 0,
           width: '100%',

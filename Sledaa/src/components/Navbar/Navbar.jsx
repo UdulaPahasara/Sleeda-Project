@@ -11,7 +11,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/logo/logo.webp';
 import dropdownVector from '../../assets/SupportingNewArrivals/Vector.webp';
 
@@ -29,6 +29,13 @@ const pages = [
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElSupport, setAnchorElSupport] = useState(null);
+  const location = useLocation();
+
+  const isActive = (page) => {
+    if (page === 'HOME') return location.pathname === '/';
+    const path = `/${page.toLowerCase().replace(/ /g, '-')}`;
+    return location.pathname.startsWith(path);
+  };
 
   const handleOpenSupportMenu = (event) => {
     setAnchorElSupport(event.currentTarget);
@@ -47,10 +54,12 @@ const Navbar = () => {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       sx={{
         backgroundColor: 'rgba(255, 255, 255, 1)',
         height: '70px',
+        top: 0,
+        zIndex: (theme) => theme.zIndex.drawer + 1,
         boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.1)',
         justifyContent: 'center',
         padding: 0,
@@ -116,8 +125,12 @@ const Navbar = () => {
                 page === 'SUPPORTING NEW ARRIVALS' ? (
                   <Box key={page}>
                     <MenuItem onClick={handleOpenSupportMenu}>
-                      <Typography sx={{ textAlign: 'center', color: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-                        {page} <img src={dropdownVector} alt="dropdown" style={{ marginLeft: '6px', width: '10px' }} />
+                      <Typography sx={{ 
+                        textAlign: 'center', 
+                        color: isActive(page) ? 'rgba(0, 28, 166, 1)' : 'black',
+                        fontWeight: isActive(page) ? 700 : 400
+                      }}>
+                        {page} <img src={dropdownVector} alt="dropdown" style={{ marginLeft: '8px', width: '10px' }} />
                       </Typography>
                     </MenuItem>
                     {Boolean(anchorElSupport) && (
@@ -133,7 +146,13 @@ const Navbar = () => {
                   </Box>
                 ) : (
                   <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={page === 'HOME' ? '/' : `/${page.toLowerCase().replace(/ /g, '-')}`}>
-                    <Typography sx={{ textAlign: 'center', color: 'black' }}>{page}</Typography>
+                    <Typography sx={{ 
+                      textAlign: 'center', 
+                      color: isActive(page) ? 'rgba(0, 28, 166, 1)' : 'black',
+                      fontWeight: isActive(page) ? 700 : 400
+                    }}>
+                      {page}
+                    </Typography>
                   </MenuItem>
                 )
               ))}
@@ -213,8 +232,8 @@ const Navbar = () => {
                       lineHeight: { md: '20px', lg: '24.84px' },
                       letterSpacing: '0%',
                       textAlign: 'center',
-                      fontWeight: 600,
-                      color: '#000',
+                      fontWeight: isActive(page) ? 700 : 600,
+                      color: isActive(page) ? 'rgba(0, 28, 166, 1)' : '#000',
                       '&:hover': {
                         color: 'rgba(0, 28, 166, 1)',
                         backgroundColor: 'transparent',
@@ -256,8 +275,8 @@ const Navbar = () => {
                     lineHeight: { md: '20px', lg: '24.84px' },
                     letterSpacing: '0%',
                     textAlign: 'center',
-                    fontWeight: page === 'HOME' ? 700 : 600,
-                    color: page === 'HOME' ? 'rgba(0, 28, 166, 1)' : '#000',
+                    fontWeight: isActive(page) ? 700 : 600,
+                    color: isActive(page) ? 'rgba(0, 28, 166, 1)' : '#000',
                     '&:hover': {
                       color: 'rgba(0, 28, 166, 1)',
                       backgroundColor: 'transparent',

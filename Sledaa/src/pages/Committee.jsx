@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, IconButton } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import ScrollFocusReveal from '../components/common/ScrollFocusReveal';
@@ -109,18 +111,48 @@ const Committee = () => {
           </Typography>
           
           <ScrollFocusReveal>
-            <Box 
-              component="img" 
-              src={leadershipImg} 
-              alt="Leadership Team"
-              sx={{
-                width: '100%',
-                maxWidth: '825px',
-                height: 'auto',
-                borderRadius: '20px',
-                objectFit: 'cover'
-              }}
-            />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: '16px', md: '30px' }, width: '100%', justifyContent: 'center' }}>
+              {/* Left Swipe Button */}
+              <IconButton
+                sx={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '25px',
+                  backgroundColor: 'rgba(224, 224, 224, 1)', // Light gray
+                  display: { xs: 'none', sm: 'flex' },
+                  '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
+                }}
+              >
+                <ArrowBackIosNewIcon sx={{ color: 'rgba(117, 117, 117, 1)', fontSize: '18px' }} />
+              </IconButton>
+
+              <Box 
+                component="img" 
+                src={leadershipImg} 
+                alt="Leadership Team"
+                sx={{
+                  width: '100%',
+                  maxWidth: '825px',
+                  height: 'auto',
+                  borderRadius: '20px',
+                  objectFit: 'cover'
+                }}
+              />
+
+              {/* Right Swipe Button */}
+              <IconButton
+                sx={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '25px',
+                  backgroundColor: 'rgba(224, 224, 224, 1)', // Light gray
+                  display: { xs: 'none', sm: 'flex' },
+                  '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
+                }}
+              >
+                <ArrowForwardIosIcon sx={{ color: 'rgba(117, 117, 117, 1)', fontSize: '18px' }} />
+              </IconButton>
+            </Box>
           </ScrollFocusReveal>
         </Box>
 
