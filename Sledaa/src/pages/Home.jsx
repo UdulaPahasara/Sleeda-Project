@@ -110,6 +110,10 @@ const Home = () => {
           // Mobile menu icon
           '& .MuiIconButton-root': {
             color: '#fff !important',
+          },
+          // Dropdown vector icon specifically
+          '& .nav-dropdown-icon': {
+            filter: 'brightness(0) invert(1) !important',
           }
         }}
       >
@@ -149,95 +153,103 @@ const Home = () => {
         <Box sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', px: 2 }}>
           
           {/* sleeda.org box */}
-          <Box
-            sx={{
-              width: '170px',
-              height: '42px',
-              backgroundColor: 'rgba(0, 28, 166, 1)',
-              borderRadius: '92.25px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              mb: '25px',
-            }}
-          >
+          <ScrollFocusReveal delay="0s">
+            <Box
+              sx={{
+                width: '170px',
+                height: '42px',
+                backgroundColor: 'rgba(0, 28, 166, 1)',
+                borderRadius: '92.25px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                mb: '25px',
+              }}
+            >
+              <Typography
+                sx={{
+                  fontFamily: 'Poppins',
+                  fontWeight: 600,
+                  fontSize: '14.76px',
+                  lineHeight: '23.06px',
+                  color: 'rgba(255, 255, 255, 1)',
+                  textTransform: 'capitalize',
+                }}
+              >
+                SLEDAA.ORG
+              </Typography>
+            </Box>
+          </ScrollFocusReveal>
+
+          {/* Main Title */}
+          <ScrollFocusReveal delay="0.2s">
+            <Typography
+              variant="h1"
+              sx={{
+                width: { xs: '100%', md: '749px' },
+                fontFamily: 'Poppins',
+                fontWeight: 800,
+                fontSize: { xs: '32px', md: '48px' },
+                color: '#fff',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                mb: '20px',
+                lineHeight: 1.2,
+              }}
+            >
+              SRI LANKAN ENGINEERING{' '}
+              <Box component="span" sx={{ backgroundColor: 'rgba(0, 28, 166, 1)', padding: '0 10px', display: 'inline-block',borderRadius:'8.88px' }}>
+                DIPLOMATES ASSOCIATION 
+              </Box>{' '}
+             <br /> OF AUSTRALIA
+            </Typography>
+          </ScrollFocusReveal>
+
+          {/* Subtitle */}
+          <ScrollFocusReveal delay="0.4s">
             <Typography
               sx={{
                 fontFamily: 'Poppins',
                 fontWeight: 600,
-                fontSize: '14.76px',
-                lineHeight: '23.06px',
-                color: 'rgba(255, 255, 255, 1)',
-                textTransform: 'capitalize',
+                fontSize: '16px',
+                lineHeight: '22px',
+                color: '#fff',
+                textAlign: 'center',
+                mb: '30px',
               }}
             >
-              SLEDAA.ORG
+              Established In 1994 – Melbourne
             </Typography>
-          </Box>
-
-          {/* Main Title */}
-          <Typography
-            variant="h1"
-            sx={{
-              width: { xs: '100%', md: '749px' },
-              fontFamily: 'Poppins',
-              fontWeight: 800,
-              fontSize: { xs: '32px', md: '48px' },
-              color: '#fff',
-              textAlign: 'center',
-              textTransform: 'uppercase',
-              mb: '20px',
-              lineHeight: 1.2,
-            }}
-          >
-            SRI LANKAN ENGINEERING{' '}
-            <Box component="span" sx={{ backgroundColor: 'rgba(0, 28, 166, 1)', padding: '0 10px', display: 'inline-block',borderRadius:'8.88px' }}>
-              DIPLOMATES ASSOCIATION 
-            </Box>{' '}
-           <br /> OF AUSTRALIA
-          </Typography>
-
-          {/* Subtitle */}
-          <Typography
-            sx={{
-              fontFamily: 'Poppins',
-              fontWeight: 600,
-              fontSize: '16px',
-              lineHeight: '22px',
-              color: '#fff',
-              textAlign: 'center',
-              mb: '30px',
-            }}
-          >
-            Established In 1994 – Melbourne
-          </Typography>
+          </ScrollFocusReveal>
 
           {/* Contact Us Button */}
-          <Button
-            component="a"
-            href="/contact-us"
-            sx={{
-              width: '161px',
-              height: '54px',
-              border: '1px solid rgba(255, 255, 255, 0.7)',
-              borderRadius: '30px',
-              color: '#fff',
-              fontFamily: 'Poppins',
-              fontWeight: 600,
-              fontSize: '16px',
-              textTransform: 'capitalize',
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '10px',
-              '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              }
-            }}
-          >
-            CONTACT US <span style={{ marginLeft: '10px', fontSize: '20px' }}>→</span>
-          </Button>
+          <ScrollFocusReveal delay="0.6s">
+            <Button
+              component="a"
+              href="/contact-us"
+              sx={{
+                width: '161px',
+                height: '54px',
+                border: '1px solid rgba(255, 255, 255, 0.7)',
+                borderRadius: '30px',
+                color: '#fff',
+                fontFamily: 'Poppins',
+                fontWeight: 600,
+                fontSize: '16px',
+                textTransform: 'capitalize',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '10px',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                }
+              }}
+            >
+              CONTACT US <span style={{ marginLeft: '10px', fontSize: '20px' }}>→</span>
+            </Button>
+          </ScrollFocusReveal>
 
         </Box>
       </Box>

@@ -130,7 +130,7 @@ const Navbar = () => {
                         color: isActive(page) ? 'rgba(0, 28, 166, 1)' : 'black',
                         fontWeight: isActive(page) ? 700 : 400
                       }}>
-                        {page} <img src={dropdownVector} alt="dropdown" style={{ marginLeft: '8px', width: '10px' }} />
+                        {page} <img src={dropdownVector} alt="dropdown" className="nav-dropdown-icon" style={{ marginLeft: '8px', width: '10px' }} />
                       </Typography>
                     </MenuItem>
                     {Boolean(anchorElSupport) && (
@@ -240,7 +240,7 @@ const Navbar = () => {
                       }
                     }}
                   >
-                    {page} <img src={dropdownVector} alt="dropdown" style={{ marginLeft: '6px', width: '10px' }} />
+                    {page} <img src={dropdownVector} alt="dropdown" className="nav-dropdown-icon" style={{ marginLeft: '6px', width: '10px' }} />
                   </Button>
                   <Menu
                     anchorEl={anchorElSupport}
