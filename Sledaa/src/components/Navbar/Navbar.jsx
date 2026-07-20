@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Box,
@@ -26,10 +26,28 @@ const pages = [
   'NEWS',
 ];
 
-const Navbar = () => {
+const Navbar = ({ transparentOnTop = false }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElSupport, setAnchorElSupport] = useState(null);
+  const [isAtTop, setIsAtTop] = useState(true);
   const location = useLocation();
+
+  // When transparentOnTop is enabled, listen to scroll to know when to swap styles
+  useEffect(() => {
+    if (!transparentOnTop) return;
+
+    const handleScroll = () => {
+      // Hero section is ~762px tall; switch once user scrolls past it
+      setIsAtTop(window.scrollY < 692);
+    };
+
+    handleScroll(); // Run on mount
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [transparentOnTop]);
+
+  // When transparentOnTop is false, always behave as default (white) navbar
+  const isTransparent = transparentOnTop && isAtTop;
 
   const isActive = (page) => {
     if (page === 'HOME') return location.pathname === '/';
@@ -52,17 +70,23 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
 
+  // Derived colors based on transparent mode
+  const navTextColor = isTransparent ? '#fff' : '#000';
+  const activeColor = 'rgba(0, 28, 166, 1)';
+  const dropdownIconFilter = isTransparent ? 'brightness(0) invert(1)' : 'none';
+
   return (
     <AppBar
-      position="sticky"
+      position={transparentOnTop ? 'fixed' : 'sticky'}
       sx={{
-        backgroundColor: 'rgba(255, 255, 255, 1)',
+        backgroundColor: isTransparent ? 'transparent' : 'rgba(255, 255, 255, 1)',
         height: '70px',
         top: 0,
         zIndex: (theme) => theme.zIndex.drawer + 1,
-        boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.1)',
+        boxShadow: isTransparent ? 'none' : '0px 2px 4px -1px rgba(0,0,0,0.1)',
         justifyContent: 'center',
         padding: 0,
+        transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
       }}
     >
       <Container maxWidth={false} sx={{ padding: 0, maxWidth: '1440px' }}>
@@ -74,16 +98,16 @@ const Navbar = () => {
             sx={{
               display: { xs: 'none', md: 'flex' },
               mr: { md: 1, lg: 2 },
-              ml: { md: 1, lg: '100px' }, // Responsive margin to fit 1024px
-              mt: '4px',   // Exact pixel requirement
+              ml: { md: 1, lg: '100px' },
+              mt: '4px',
             }}
           >
             <img
               src={logo}
               alt="Logo"
               style={{
-                width: '58px',  // Exact pixel requirement
-                height: '59px', // Exact pixel requirement
+                width: '58px',
+                height: '59px',
                 objectFit: 'contain',
               }}
             />
@@ -98,7 +122,7 @@ const Navbar = () => {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
-              sx={{ color: 'black' }}
+              sx={{ color: navTextColor }}
             >
               <MenuIcon />
             </IconButton>
@@ -127,7 +151,7 @@ const Navbar = () => {
                     <MenuItem onClick={handleOpenSupportMenu}>
                       <Typography sx={{ 
                         textAlign: 'center', 
-                        color: isActive(page) ? 'rgba(0, 28, 166, 1)' : 'black',
+                        color: isActive(page) ? activeColor : 'black',
                         fontWeight: isActive(page) ? 700 : 400
                       }}>
                         {page} <img src={dropdownVector} alt="dropdown" className="nav-dropdown-icon" style={{ marginLeft: '8px', width: '10px' }} />
@@ -148,7 +172,7 @@ const Navbar = () => {
                   <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={page === 'HOME' ? '/' : `/${page.toLowerCase().replace(/ /g, '-')}`}>
                     <Typography sx={{ 
                       textAlign: 'center', 
-                      color: isActive(page) ? 'rgba(0, 28, 166, 1)' : 'black',
+                      color: isActive(page) ? activeColor : 'black',
                       fontWeight: isActive(page) ? 700 : 400
                     }}>
                       {page}
@@ -161,7 +185,7 @@ const Navbar = () => {
                 <Button
                   variant="contained"
                   sx={{
-                    backgroundColor: 'rgba(0, 28, 166, 1)',
+                    backgroundColor: activeColor,
                     borderRadius: '15px',
                     fontWeight: 'bold',
                     textTransform: 'uppercase',
@@ -209,8 +233,8 @@ const Navbar = () => {
               display: { xs: 'none', md: 'flex' },
               justifyContent: 'center',
               alignItems: 'center',
-              gap: { md: '10px', lg: '20px' }, // Reduced gap on smaller laptops
-              width: { md: 'auto', lg: '850.83px' }, // Auto width to fit 1024px
+              gap: { md: '10px', lg: '20px' },
+              width: { md: 'auto', lg: '850.83px' },
               height: 'auto',
               margin: '0 auto',
             }}
@@ -233,14 +257,16 @@ const Navbar = () => {
                       letterSpacing: '0%',
                       textAlign: 'center',
                       fontWeight: isActive(page) ? 700 : 600,
-                      color: isActive(page) ? 'rgba(0, 28, 166, 1)' : '#000',
+                      color: isActive(page) ? activeColor : navTextColor,
+                      whiteSpace: 'nowrap',
+                      transition: 'color 0.3s ease',
                       '&:hover': {
-                        color: 'rgba(0, 28, 166, 1)',
+                        color: activeColor,
                         backgroundColor: 'transparent',
                       }
                     }}
                   >
-                    {page} <img src={dropdownVector} alt="dropdown" className="nav-dropdown-icon" style={{ marginLeft: '6px', width: '10px' }} />
+                    {page} <img src={dropdownVector} alt="dropdown" className="nav-dropdown-icon" style={{ marginLeft: '6px', width: '10px', filter: dropdownIconFilter, transition: 'filter 0.3s ease' }} />
                   </Button>
                   <Menu
                     anchorEl={anchorElSupport}
@@ -276,9 +302,11 @@ const Navbar = () => {
                     letterSpacing: '0%',
                     textAlign: 'center',
                     fontWeight: isActive(page) ? 700 : 600,
-                    color: isActive(page) ? 'rgba(0, 28, 166, 1)' : '#000',
+                    color: isActive(page) ? activeColor : navTextColor,
+                    whiteSpace: 'nowrap',
+                    transition: 'color 0.3s ease',
                     '&:hover': {
-                      color: 'rgba(0, 28, 166, 1)',
+                      color: activeColor,
                       backgroundColor: 'transparent',
                     }
                   }}
@@ -298,8 +326,8 @@ const Navbar = () => {
               sx={{
                 width: { md: '110px', lg: '131px' },
                 height: { md: '40px', lg: '48px' },
-                backgroundColor: 'rgba(0, 28, 166, 1)', 
-                borderRadius: '15px', 
+                backgroundColor: activeColor,
+                borderRadius: '15px',
                 padding: { md: '8px', lg: '12.68px 16.65px 12.68px 14.27px' },
                 fontWeight: 'bold',
                 textTransform: 'uppercase',

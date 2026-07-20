@@ -77,48 +77,9 @@ const Home = () => {
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#fff', position: 'relative' }}>
-      
-      {/* Override Navbar styles for this specific page without modifying Navbar.jsx */}
-      <Box
-        sx={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          zIndex: 10,
-          '& .MuiAppBar-root': {
-            backgroundColor: 'transparent !important',
-            boxShadow: 'none !important',
-          },
-          '& .MuiButton-root': {
-            // Override nav text colors 
-            color: '#fff !important',
-            whiteSpace: 'nowrap !important', 
-            '@media (max-width: 1100px)': {
-              fontSize: '13px !important', 
-            },
-          },
-          // We specifically need to keep the "HOME" button blue and "CONTACT US" button styling,
-          // so we use a more targeted selector for the nav items.
-          '& .MuiBox-root > .MuiButton-root[href="/"]': {
-             color: 'rgba(0, 28, 166, 1) !important'
-          },
-          '& .MuiBox-root > .MuiButton-root[href="/contact-us"]': {
-             color: '#fff !important',
-             backgroundColor: 'rgba(0, 28, 166, 1) !important'
-          },
-          // Mobile menu icon
-          '& .MuiIconButton-root': {
-            color: '#fff !important',
-          },
-          // Dropdown vector icon specifically
-          '& .nav-dropdown-icon': {
-            filter: 'brightness(0) invert(1) !important',
-          }
-        }}
-      >
-        <Navbar />
-      </Box>
+
+      {/* Navbar with transparent hero mode - handles its own scroll detection */}
+      <Navbar transparentOnTop />
 
       {/* Hero Section */}
       <Box
