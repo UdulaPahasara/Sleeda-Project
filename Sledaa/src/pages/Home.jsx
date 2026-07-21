@@ -14,6 +14,7 @@ import ourMemo3 from '../assets/Home/ourmemo3.webp';
 import middleManImg from '../assets/Home/middleMan.webp';
 import aboveFooterImg from '../assets/Home/aboveFooter.webp';
 import InfoCard from '../components/common/InfoCard';
+import BecomeMember from './BecomeMember';
 
 const ScrollFocusReveal = ({ children, sx, delay = '0s' }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -48,6 +49,7 @@ const ScrollFocusReveal = ({ children, sx, delay = '0s' }) => {
 const Home = () => {
   const carouselRef = useRef(null);
   const [activeCard, setActiveCard] = useState(0);
+  const [isBecomeMemberOpen, setIsBecomeMemberOpen] = useState(false);
 
   const handleScroll = () => {
     if (carouselRef.current) {
@@ -501,6 +503,7 @@ const Home = () => {
               Connect with experienced professionals, expand your network, participate in exclusive events, and contribute to a community dedicated to engineering excellence and mutual success.
             </Typography>
             <Button
+              onClick={() => setIsBecomeMemberOpen(true)}
               sx={{
                 width: '180px',
                 height: '45px',
@@ -570,6 +573,11 @@ const Home = () => {
       </Box>
 
       <Footer />
+
+      <BecomeMember 
+        open={isBecomeMemberOpen} 
+        onClose={() => setIsBecomeMemberOpen(false)} 
+      />
 
     </Box>
   );
