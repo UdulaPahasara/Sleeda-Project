@@ -1,29 +1,32 @@
-import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import galleryHeroBg from '../assets/Gallery/Galleryhero.webp';
-import sledaaTech2023 from '../assets/Gallery/SledaaTech2023.webp';
-import sledaTech2024 from '../assets/Gallery/SledaTech2024.webp';
-import sledaaTechno2025 from '../assets/Gallery/SledaaTechno2025.webp';
-
-const galleryData = [
-  {
-    title: "SLEDAA Techno Nite 2023",
-    image: sledaaTech2023
-  },
-  {
-    title: "SLEDAA Techno Nite 2024",
-    image: sledaTech2024
-  },
-  {
-    title: "SLEDAA Techno Nite 2025",
-    image: sledaaTechno2025
-  }
-];
 
 const Gallery = () => {
+  const [albums, setAlbums] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchAlbums = async () => {
+    try {
+      const response = await fetch('http://localhost:8081/api/albums');
+      if (response.ok) {
+        const data = await response.json();
+        setAlbums(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch albums", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAlbums();
+  }, []);
+
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
@@ -92,26 +95,31 @@ const Gallery = () => {
           maxWidth: '1260px',
           width: '100%'
         }}>
-          {galleryData.map((item, index) => (
-            <Box 
-              key={index}
-              sx={{
-                width: '100%',
-                maxWidth: '400px',
-                margin: '0 auto', // Keeps it centered if grid column is wider
-                height: { xs: '380px', sm: '400px', md: '424px' }, // Scale height slightly for tablets
-                borderRadius: '16px',
-                backgroundImage: `url(${item.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-            >
-              <Button
-                component={Link}
-                to={item.title === "SLEDAA Techno Nite 2023" ? "/gallery/techno-nite-2023" : "#"}
+          {loading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', p: 4, gridColumn: '1 / -1' }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            albums.map((item, index) => (
+              <Box 
+                key={index}
                 sx={{
+                  width: '100%',
+                  maxWidth: '400px',
+                  margin: '0 auto', // Keeps it centered if grid column is wider
+                  height: { xs: '380px', sm: '400px', md: '424px' }, // Scale height slightly for tablets
+                  borderRadius: '16px',
+                  backgroundImage: `url(http://localhost:8081${item.coverImageUrl})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                <Button
+                  component={Link}
+                  to={`/gallery/${item.id}`}
+                  sx={{
                   position: 'absolute',
                   bottom: '30px',
                   left: '50%',
@@ -141,7 +149,7 @@ const Gallery = () => {
                 </Typography>
               </Button>
             </Box>
-          ))}
+          )))}
         </Box>
       </Box>
 

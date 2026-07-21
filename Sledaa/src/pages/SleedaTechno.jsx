@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Typography, CircularProgress } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import ScrollFocusReveal from '../components/common/ScrollFocusReveal';
@@ -11,28 +12,31 @@ import Share from "yet-another-react-lightbox/plugins/share";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import galleryHeroBg from '../assets/Gallery/Galleryhero.webp';
 
-import img1 from '../assets/Gallery/Gallery2023/1.webp';
-import img2 from '../assets/Gallery/Gallery2023/2.webp';
-import img3 from '../assets/Gallery/Gallery2023/3.webp';
-import img4 from '../assets/Gallery/Gallery2023/4.webp';
-import img5 from '../assets/Gallery/Gallery2023/5.webp';
-import img6 from '../assets/Gallery/Gallery2023/6.webp';
-import img7 from '../assets/Gallery/Gallery2023/7.webp';
-import img8 from '../assets/Gallery/Gallery2023/8.webp';
-import img9 from '../assets/Gallery/Gallery2023/9.webp';
-import img10 from '../assets/Gallery/Gallery2023/10.webp';
-import img11 from '../assets/Gallery/Gallery2023/11.webp';
-import img12 from '../assets/Gallery/Gallery2023/12.webp';
-import img13 from '../assets/Gallery/Gallery2023/13.webp';
-import img14 from '../assets/Gallery/Gallery2023/14.webp';
-
-const images = [
-  img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14
-];
-
 const SleedaTechno = () => {
+  const { id } = useParams();
+  const [album, setAlbum] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(-1);
-  const slides = images.map((src) => ({ src }));
+
+  const fetchAlbum = async () => {
+    try {
+      const response = await fetch(`http://localhost:8081/api/albums/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setAlbum(data);
+      }
+    } catch (error) {
+      console.error("Error fetching album", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (id) fetchAlbum();
+  }, [id]);
+
+  const slides = album && album.images ? album.images.map((img) => ({ src: `http://localhost:8081${img.imageUrl}` })) : [];
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -98,39 +102,50 @@ const SleedaTechno = () => {
                 fontSize: { xs: '16px', md: '20px' },
                 color: '#fff'
               }}>
-                SLEDAA Techno Nite 2023
+                {album ? album.title : 'Loading...'}
               </Typography>
             </Box>
           </Box>
 
           {/* Masonry Grid using CSS Columns */}
-          <Box sx={{ 
-            columnCount: { xs: 1, sm: 2, md: 3, lg: 4 }, // Automatically responsive masonry!
-            columnGap: '16px' 
-          }}>
-            {images.map((img, idx) => (
-              <ScrollFocusReveal key={idx}>
-                <Box 
-                  onClick={() => setLightboxIndex(idx)}
-                  sx={{ 
-                    breakInside: 'avoid', // Crucial: prevents image splitting across columns
-                    marginBottom: '16px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <img 
-                    src={img} 
-                    alt={`Techno Nite 2023 - ${idx}`} 
-                    style={{ 
-                      width: '100%', 
-                      borderRadius: '16px', 
-                      display: 'block' // removes default bottom gap from inline images
-                    }} 
-                  />
-                </Box>
-              </ScrollFocusReveal>
-            ))}
-          </Box>
+          {loading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Box sx={{ 
+              columnCount: { xs: 1, sm: 2, md: 3, lg: 4 }, // Automatically responsive masonry!
+              columnGap: '16px' 
+            }}>
+              {album?.images?.map((img, idx) => (
+                <ScrollFocusReveal key={img.id || idx}>
+                  <Box 
+                    onClick={() => setLightboxIndex(idx)}
+                    sx={{ 
+                      breakInside: 'avoid', // Crucial: prevents image splitting across columns
+                      marginBottom: '16px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <img 
+                      src={`http://localhost:8081${img.imageUrl}`} 
+                      alt={`${album.title} - ${idx}`} 
+                      style={{ 
+                        width: '100%', 
+                        borderRadius: '16px', 
+                        display: 'block' // removes default bottom gap from inline images
+                      }} 
+                    />
+                  </Box>
+                </ScrollFocusReveal>
+              ))}
+              {(!album?.images || album.images.length === 0) && (
+                <Typography sx={{ fontFamily: 'Poppins', textAlign: 'center', gridColumn: '1 / -1' }}>
+                  No images in this album.
+                </Typography>
+              )}
+            </Box>
+          )}
           
         </Box>
       </Box>

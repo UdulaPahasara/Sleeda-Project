@@ -26,7 +26,7 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/gallery/techno-nite-2023" element={<SleedaTechno />} />
+        <Route path="/gallery/:id" element={<SleedaTechno />} />
         <Route path="/committee" element={<Committee />} />
         <Route path="/supporting-new-arrivals/can-support" element={<CanSupport />} />
         <Route path="/supporting-new-arrivals/need-support" element={<NeedSupport />} />
