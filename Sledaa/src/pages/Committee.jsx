@@ -10,19 +10,9 @@ import committeeHeroBg from '../assets/Committee/committieHero.webp';
 import leadershipImg from '../assets/Committee/leadershipImg.webp';
 import ourTeamImg from '../assets/Committee/ourteam.webp';
 
-const pastTeamMembers = [
-  { name: "THILINA JAYAWARDANA", position: "President" },
-  { name: "KASUN PERERA", position: "Vice President" },
-  { name: "ANURA JAYAWARDHANA", position: "Secretary" },
-  { name: "AMALI PERERA", position: "Assistant Secretary" },
-  { name: "THILINA JAYAWARDANA", position: "Treasurer" },
-  { name: "KASUN PERERA", position: "Assistant Treasurer" },
-  { name: "ANURA JAYAWARDHANA", position: "Committee Member" },
-  { name: "AMALI PERERA", position: "Committee Member" }
-];
-
 const Committee = () => {
   const [members, setMembers] = useState([]);
+  const [pastMembers, setPastMembers] = useState([]);
 
   useEffect(() => {
     const fetchCommittee = async () => {
@@ -37,7 +27,20 @@ const Committee = () => {
       }
     };
 
+    const fetchPastMembers = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/api/past-committee');
+        if (response.ok) {
+          const data = await response.json();
+          setPastMembers(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch past committee", error);
+      }
+    };
+
     fetchCommittee();
+    fetchPastMembers();
   }, []);
 
   return (
@@ -296,55 +299,61 @@ const Committee = () => {
             gap: '40px',
             width: '100%'
           }}>
-            {pastTeamMembers.map((member, index) => (
-              <ScrollFocusReveal key={index} delay={`${index * 0.1}s`}>
-                <Box sx={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  alignItems: 'center',
-                  width: '100%',
-                  maxWidth: '295px',
-                  mx: 'auto'
-                }}>
-                  <Box 
-                    component="img" 
-                    src={ourTeamImg} 
-                    alt={member.name}
-                    sx={{
-                      width: '100%',
-                      height: '269.75px', // Exact height from spec
-                      borderRadius: '10px',
-                      objectFit: 'cover',
-                      backgroundColor: '#f5f5f5',
-                      mb: 2
-                    }}
-                  />
-                  <Typography sx={{
-                    fontFamily: 'Poppins',
-                    fontWeight: 600,
-                    fontSize: '18px', // Scaled slightly to fit well, standard was 20px
-                    lineHeight: '22px',
-                    textAlign: 'center',
-                    textTransform: 'uppercase',
-                    color: '#000',
-                    mb: 0.5
+            {pastMembers.length > 0 ? (
+              pastMembers.map((member, index) => (
+                <ScrollFocusReveal key={member.id} delay={`${index * 0.1}s`}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center',
+                    width: '100%',
+                    maxWidth: '295px',
+                    mx: 'auto'
                   }}>
-                    {member.name}
-                  </Typography>
-                  <Typography sx={{
-                    fontFamily: 'Poppins',
-                    fontWeight: 500,
-                    fontSize: '16px',
-                    lineHeight: '20px',
-                    textAlign: 'center',
-                    textTransform: 'capitalize',
-                    color: '#666'
-                  }}>
-                    {member.position}
-                  </Typography>
-                </Box>
-              </ScrollFocusReveal>
-            ))}
+                    <Box 
+                      component="img" 
+                      src={member.imageUrl ? `http://localhost:8081${member.imageUrl}` : ourTeamImg} 
+                      alt={member.name}
+                      sx={{
+                        width: '100%',
+                        height: '269.75px', // Exact height from spec
+                        borderRadius: '10px',
+                        objectFit: 'cover',
+                        backgroundColor: '#f5f5f5',
+                        mb: 2
+                      }}
+                    />
+                    <Typography sx={{
+                      fontFamily: 'Poppins',
+                      fontWeight: 600,
+                      fontSize: '18px', // Scaled slightly to fit well, standard was 20px
+                      lineHeight: '22px',
+                      textAlign: 'center',
+                      textTransform: 'uppercase',
+                      color: '#000',
+                      mb: 0.5
+                    }}>
+                      {member.name}
+                    </Typography>
+                    <Typography sx={{
+                      fontFamily: 'Poppins',
+                      fontWeight: 500,
+                      fontSize: '16px',
+                      lineHeight: '20px',
+                      textAlign: 'center',
+                      textTransform: 'capitalize',
+                      color: '#666'
+                    }}>
+                      {member.position}
+                    </Typography>
+                  </Box>
+                </ScrollFocusReveal>
+              ))
+            ) : (
+              <Typography sx={{ textAlign: 'center', fontFamily: 'Poppins', color: '#666', gridColumn: '1 / -1' }}>
+                No past committee members found.
+              </Typography>
+            )}
           </Box>
         </Box>
 
