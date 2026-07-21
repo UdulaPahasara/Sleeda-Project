@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import ScrollFocusReveal from '../components/common/ScrollFocusReveal';
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Download from "yet-another-react-lightbox/plugins/download";
+import Share from "yet-another-react-lightbox/plugins/share";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import galleryHeroBg from '../assets/Gallery/Galleryhero.webp';
 
 import img1 from '../assets/Gallery/Gallery2023/1.webp';
@@ -25,6 +31,9 @@ const images = [
 ];
 
 const SleedaTechno = () => {
+  const [lightboxIndex, setLightboxIndex] = useState(-1);
+  const slides = images.map((src) => ({ src }));
+
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
@@ -101,10 +110,14 @@ const SleedaTechno = () => {
           }}>
             {images.map((img, idx) => (
               <ScrollFocusReveal key={idx}>
-                <Box sx={{ 
-                  breakInside: 'avoid', // Crucial: prevents image splitting across columns
-                  marginBottom: '16px' 
-                }}>
+                <Box 
+                  onClick={() => setLightboxIndex(idx)}
+                  sx={{ 
+                    breakInside: 'avoid', // Crucial: prevents image splitting across columns
+                    marginBottom: '16px',
+                    cursor: 'pointer'
+                  }}
+                >
                   <img 
                     src={img} 
                     alt={`Techno Nite 2023 - ${idx}`} 
@@ -121,6 +134,14 @@ const SleedaTechno = () => {
           
         </Box>
       </Box>
+
+      <Lightbox
+        index={lightboxIndex}
+        slides={slides}
+        open={lightboxIndex >= 0}
+        close={() => setLightboxIndex(-1)}
+        plugins={[Fullscreen, Download, Share, Zoom]}
+      />
 
       <Footer />
     </Box>
