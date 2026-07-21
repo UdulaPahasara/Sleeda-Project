@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -6,30 +6,25 @@ import projectHeroBg from '../assets/Project/Projecthero.webp';
 import AlternatingFeatureCard from '../components/common/AlternatingFeatureCard';
 import projectReuseImg from '../assets/Project/ProjectReuseImg.webp';
 
-const projectData = [
-  {
-    title: "Professional Development Program",
-    description: "SLEDAA organizes workshops, technical seminars, and knowledge-sharing sessions that help members enhance their engineering expertise, leadership skills, and professional competencies.",
-    image: projectReuseImg
-  },
-  {
-    title: "Student Mentorship Initiative",
-    description: "Connecting experienced engineering professionals with students and young graduates, this program provides career guidance, industry insights, and mentoring to support the next generation of engineers.",
-    image: projectReuseImg
-  },
-  {
-    title: "Community Outreach & Welfare",
-    description: "SLEDAA actively supports community welfare through charitable initiatives, volunteer programs, and fundraising activities that create a positive impact for members and the wider community.",
-    image: projectReuseImg
-  },
-  {
-    title: "Industry Networking Platform",
-    description: "Through networking events, professional forums, and industry collaborations, SLEDAA helps members build meaningful relationships, exchange knowledge, and explore new career opportunities.",
-    image: projectReuseImg
-  }
-];
-
 const Projects = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/api/projects');
+        if (response.ok) {
+          const data = await response.json();
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch projects", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
@@ -79,15 +74,21 @@ const Projects = () => {
 
       {/* Main Content Area */}
       <Box sx={{ flex: 1, backgroundColor: '#fff', py: { xs: '60px', md: '100px' }, px: 2, display: 'flex', flexDirection: 'column', gap: { xs: '40px', md: '60px' } }}>
-        {projectData.map((project, index) => (
-          <AlternatingFeatureCard 
-            key={index}
-            title={project.title}
-            description={project.description}
-            image={project.image}
-            imagePosition={index % 2 === 0 ? 'left' : 'right'} 
-          />
-        ))}
+        {projects.length > 0 ? (
+          projects.map((project, index) => (
+            <AlternatingFeatureCard 
+              key={project.id}
+              title={project.title}
+              description={project.description}
+              image={project.coverImageUrl ? `http://localhost:8081${project.coverImageUrl}` : projectReuseImg}
+              imagePosition={index % 2 === 0 ? 'left' : 'right'} 
+            />
+          ))
+        ) : (
+          <Typography sx={{ textAlign: 'center', fontFamily: 'Poppins', color: '#666' }}>
+            No projects found.
+          </Typography>
+        )}
       </Box>
 
       <Footer />

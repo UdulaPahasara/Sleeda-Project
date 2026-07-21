@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -6,30 +6,25 @@ import newsHeroBg from '../assets/News/Newshero.webp';
 import AlternatingFeatureCard from '../components/common/AlternatingFeatureCard';
 import newsReuseImage from '../assets/News/NewsReuseImg.webp';
 
-const newsData = [
-  {
-    title: "SLEDAA Hosts Annual General Meeting",
-    description: "Members gathered for the Annual General Meeting to review the association's achievements, elect the Executive Committee, and discuss future initiatives aimed at strengthening the engineering community across Australia.",
-    image: newsReuseImage
-  },
-  {
-    title: "Technical Seminar Brings Industry Experts Together",
-    description: "Engineering professionals and students participated in an engaging technical seminar featuring expert speakers who shared insights into emerging technologies, industry trends, and career development.",
-    image: newsReuseImage
-  },
-  {
-    title: "Celebrating Our Community at the Annual Get-Together",
-    description: "Members and their families came together for an evening of networking, cultural celebrations, and entertainment, reinforcing the friendships and community spirit that define SLEDAA.",
-    image: newsReuseImage
-  },
-  {
-    title: "New Membership Applications Now Open",
-    description: "SLEDAA welcomes Sri Lankan engineering diplomates across Australia to join our growing community and enjoy networking opportunities, professional development programs, and member-exclusive events.",
-    image: newsReuseImage
-  }
-];
-
 const News = () => {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/api/news');
+        if (response.ok) {
+          const data = await response.json();
+          setNews(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch news", error);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
@@ -79,15 +74,21 @@ const News = () => {
 
       {/* Main Content Area */}
       <Box sx={{ flex: 1, backgroundColor: '#fff', py: { xs: '60px', md: '100px' }, px: 2, display: 'flex', flexDirection: 'column', gap: { xs: '40px', md: '60px' } }}>
-        {newsData.map((news, index) => (
-          <AlternatingFeatureCard 
-            key={index}
-            title={news.title}
-            description={news.description}
-            image={news.image}
-            imagePosition={index % 2 === 0 ? 'left' : 'right'} 
-          />
-        ))}
+        {news.length > 0 ? (
+          news.map((item, index) => (
+            <AlternatingFeatureCard 
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              image={item.coverImageUrl ? `http://localhost:8081${item.coverImageUrl}` : newsReuseImage}
+              imagePosition={index % 2 === 0 ? 'left' : 'right'} 
+            />
+          ))
+        ) : (
+          <Typography sx={{ textAlign: 'center', fontFamily: 'Poppins', color: '#666' }}>
+            No news found.
+          </Typography>
+        )}
       </Box>
 
       <Footer />
