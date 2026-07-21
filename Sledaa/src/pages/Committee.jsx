@@ -13,6 +13,8 @@ import ourTeamImg from '../assets/Committee/ourteam.webp';
 const Committee = () => {
   const [members, setMembers] = useState([]);
   const [pastMembers, setPastMembers] = useState([]);
+  const [coverImages, setCoverImages] = useState([]);
+  const [currentCoverIndex, setCurrentCoverIndex] = useState(0);
 
   useEffect(() => {
     const fetchCommittee = async () => {
@@ -39,9 +41,34 @@ const Committee = () => {
       }
     };
 
+    const fetchCoverImages = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/api/committee-covers');
+        if (response.ok) {
+          const data = await response.json();
+          setCoverImages(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch committee cover images", error);
+      }
+    };
+
     fetchCommittee();
     fetchPastMembers();
+    fetchCoverImages();
   }, []);
+
+  const handleNextCover = () => {
+    if (coverImages.length > 0) {
+      setCurrentCoverIndex((prev) => (prev + 1) % coverImages.length);
+    }
+  };
+
+  const handlePrevCover = () => {
+    if (coverImages.length > 0) {
+      setCurrentCoverIndex((prev) => (prev - 1 + coverImages.length) % coverImages.length);
+    }
+  };
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -135,12 +162,15 @@ const Committee = () => {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: '16px', md: '30px' }, width: '100%', justifyContent: 'center' }}>
               {/* Left Swipe Button */}
               <IconButton
+                onClick={handlePrevCover}
+                disabled={coverImages.length <= 1}
                 sx={{
                   width: '50px',
                   height: '50px',
                   borderRadius: '25px',
                   backgroundColor: 'rgba(224, 224, 224, 1)', // Light gray
                   display: { xs: 'none', sm: 'flex' },
+                  opacity: coverImages.length <= 1 ? 0.5 : 1,
                   '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
                 }}
               >
@@ -149,7 +179,7 @@ const Committee = () => {
 
               <Box 
                 component="img" 
-                src={leadershipImg} 
+                src={coverImages.length > 0 && coverImages[currentCoverIndex]?.imageUrl ? `http://localhost:8081${coverImages[currentCoverIndex].imageUrl}` : leadershipImg} 
                 alt="Leadership Team"
                 sx={{
                   width: '100%',
@@ -162,12 +192,15 @@ const Committee = () => {
 
               {/* Right Swipe Button */}
               <IconButton
+                onClick={handleNextCover}
+                disabled={coverImages.length <= 1}
                 sx={{
                   width: '50px',
                   height: '50px',
                   borderRadius: '25px',
                   backgroundColor: 'rgba(224, 224, 224, 1)', // Light gray
                   display: { xs: 'none', sm: 'flex' },
+                  opacity: coverImages.length <= 1 ? 0.5 : 1,
                   '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
                 }}
               >
