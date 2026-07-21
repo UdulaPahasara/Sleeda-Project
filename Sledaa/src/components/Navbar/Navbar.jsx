@@ -273,8 +273,8 @@ const Navbar = ({ transparentOnTop = false }) => {
                     open={Boolean(anchorElSupport)}
                     onClose={handleCloseSupportMenu}
                     disableScrollLock={true}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                    transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                   >
                     <MenuItem component={Link} to="/supporting-new-arrivals/can-support" onClick={handleCloseSupportMenu}>
                       <Typography sx={{ fontFamily: 'Poppins', fontWeight: 500, fontSize: '14px', color: 'black' }}>CAN SUPPORT</Typography>

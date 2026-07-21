@@ -24,6 +24,8 @@ const AnnualReport = () => {
     };
 
     fetchReports();
+    const interval = setInterval(fetchReports, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (

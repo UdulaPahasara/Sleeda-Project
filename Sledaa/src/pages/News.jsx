@@ -23,6 +23,8 @@ const News = () => {
     };
 
     fetchNews();
+    const interval = setInterval(fetchNews, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (

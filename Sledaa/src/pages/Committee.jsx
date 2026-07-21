@@ -56,6 +56,14 @@ const Committee = () => {
     fetchCommittee();
     fetchPastMembers();
     fetchCoverImages();
+
+    const interval = setInterval(() => {
+      fetchCommittee();
+      fetchPastMembers();
+      fetchCoverImages();
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleNextCover = () => {

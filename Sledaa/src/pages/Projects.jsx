@@ -23,6 +23,8 @@ const Projects = () => {
     };
 
     fetchProjects();
+    const interval = setInterval(fetchProjects, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (

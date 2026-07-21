@@ -24,6 +24,8 @@ const Resources = () => {
     };
 
     fetchResources();
+    const interval = setInterval(fetchResources, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (

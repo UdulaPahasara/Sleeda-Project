@@ -40,7 +40,11 @@ const SleedaTechno = () => {
   };
 
   useEffect(() => {
-    if (id) fetchAlbum();
+    if (id) {
+      fetchAlbum();
+      const interval = setInterval(fetchAlbum, 5000);
+      return () => clearInterval(interval);
+    }
   }, [id]);
 
   const slides = album && album.images ? album.images.map((img) => ({ src: `http://localhost:8081${img.imageUrl}` })) : [];

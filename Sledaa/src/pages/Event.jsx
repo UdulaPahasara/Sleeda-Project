@@ -23,6 +23,8 @@ const Event = () => {
     };
 
     fetchEvents();
+    const interval = setInterval(fetchEvents, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (

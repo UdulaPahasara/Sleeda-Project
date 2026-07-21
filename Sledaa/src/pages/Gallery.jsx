@@ -25,6 +25,8 @@ const Gallery = () => {
 
   useEffect(() => {
     fetchAlbums();
+    const interval = setInterval(fetchAlbums, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
