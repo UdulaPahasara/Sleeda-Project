@@ -29,6 +29,7 @@ const pages = [
 const Navbar = ({ transparentOnTop = false }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElSupport, setAnchorElSupport] = useState(null);
+  const [mobileSupportOpen, setMobileSupportOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
   const location = useLocation();
 
@@ -68,6 +69,12 @@ const Navbar = ({ transparentOnTop = false }) => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    setMobileSupportOpen(false);
+  };
+
+  const handleToggleMobileSupport = (e) => {
+    e.stopPropagation();
+    setMobileSupportOpen(prev => !prev);
   };
 
   // Derived colors based on transparent mode
@@ -148,21 +155,23 @@ const Navbar = ({ transparentOnTop = false }) => {
               {pages.map((page) => (
                 page === 'SUPPORTING NEW ARRIVALS' ? (
                   <Box key={page}>
-                    <MenuItem onClick={handleOpenSupportMenu}>
+                    <MenuItem onClick={handleToggleMobileSupport}>
                       <Typography sx={{ 
                         textAlign: 'center', 
                         color: isActive(page) ? activeColor : 'black',
-                        fontWeight: isActive(page) ? 700 : 400
+                        fontWeight: isActive(page) ? 700 : 400,
+                        display: 'flex',
+                        alignItems: 'center'
                       }}>
-                        {page} <img src={dropdownVector} alt="dropdown" className="nav-dropdown-icon" style={{ marginLeft: '8px', width: '10px' }} />
+                        {page} <img src={dropdownVector} alt="dropdown" className="nav-dropdown-icon" style={{ marginLeft: '8px', width: '10px', transform: mobileSupportOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }} />
                       </Typography>
                     </MenuItem>
-                    {Boolean(anchorElSupport) && (
+                    {mobileSupportOpen && (
                       <Box sx={{ pl: 2, backgroundColor: '#f9f9f9' }}>
-                        <MenuItem onClick={() => { handleCloseSupportMenu(); handleCloseNavMenu(); }} component={Link} to="/supporting-new-arrivals/can-support">
+                        <MenuItem onClick={() => { handleCloseNavMenu(); }} component={Link} to="/supporting-new-arrivals/can-support">
                           <Typography sx={{ color: 'black', fontSize: '14px' }}>Can Support</Typography>
                         </MenuItem>
-                        <MenuItem onClick={() => { handleCloseSupportMenu(); handleCloseNavMenu(); }} component={Link} to="/supporting-new-arrivals/need-support">
+                        <MenuItem onClick={() => { handleCloseNavMenu(); }} component={Link} to="/supporting-new-arrivals/need-support">
                           <Typography sx={{ color: 'black', fontSize: '14px' }}>Need Support</Typography>
                         </MenuItem>
                       </Box>
@@ -275,6 +284,7 @@ const Navbar = ({ transparentOnTop = false }) => {
                     disableScrollLock={true}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    sx={{ display: { xs: 'none', md: 'block' } }}
                   >
                     <MenuItem component={Link} to="/supporting-new-arrivals/can-support" onClick={handleCloseSupportMenu}>
                       <Typography sx={{ fontFamily: 'Poppins', fontWeight: 500, fontSize: '14px', color: 'black' }}>CAN SUPPORT</Typography>

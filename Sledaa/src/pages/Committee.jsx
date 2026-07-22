@@ -66,6 +66,9 @@ const Committee = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
   const handleNextCover = () => {
     if (coverImages.length > 0) {
       setCurrentCoverIndex((prev) => (prev + 1) % coverImages.length);
@@ -75,6 +78,41 @@ const Committee = () => {
   const handlePrevCover = () => {
     if (coverImages.length > 0) {
       setCurrentCoverIndex((prev) => (prev - 1 + coverImages.length) % coverImages.length);
+    }
+  };
+
+  // Auto-swipe slideshow on mobile & tablet responsive view (width < 900px)
+  useEffect(() => {
+    if (coverImages.length <= 1) return;
+
+    const autoSwipeTimer = setInterval(() => {
+      if (window.innerWidth < 900) {
+        setCurrentCoverIndex((prev) => (prev + 1) % coverImages.length);
+      }
+    }, 3500);
+
+    return () => clearInterval(autoSwipeTimer);
+  }, [coverImages.length]);
+
+  // Mobile & Tablet Touch Swipe Handlers
+  const minSwipeDistance = 40;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) {
+      handleNextCover();
+    } else if (distance < -minSwipeDistance) {
+      handlePrevCover();
     }
   };
 
@@ -167,53 +205,80 @@ const Committee = () => {
           </Typography>
           
           <ScrollFocusReveal>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: '16px', md: '30px' }, width: '100%', justifyContent: 'center' }}>
-              {/* Left Swipe Button */}
-              <IconButton
-                onClick={handlePrevCover}
-                disabled={coverImages.length <= 1}
-                sx={{
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '25px',
-                  backgroundColor: 'rgba(224, 224, 224, 1)', // Light gray
-                  display: { xs: 'none', sm: 'flex' },
-                  opacity: coverImages.length <= 1 ? 0.5 : 1,
-                  '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
-                }}
-              >
-                <ArrowBackIosNewIcon sx={{ color: 'rgba(117, 117, 117, 1)', fontSize: '18px' }} />
-              </IconButton>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: '16px', md: '30px' }, width: '100%', justifyContent: 'center' }}>
+                {/* Left Swipe Button */}
+                <IconButton
+                  onClick={handlePrevCover}
+                  disabled={coverImages.length <= 1}
+                  sx={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '25px',
+                    backgroundColor: 'rgba(224, 224, 224, 1)', // Light gray
+                    display: { xs: 'none', md: 'flex' },
+                    opacity: coverImages.length <= 1 ? 0.5 : 1,
+                    '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
+                  }}
+                >
+                  <ArrowBackIosNewIcon sx={{ color: 'rgba(117, 117, 117, 1)', fontSize: '18px' }} />
+                </IconButton>
 
-              <Box 
-                component="img" 
-                src={coverImages.length > 0 && coverImages[currentCoverIndex]?.imageUrl ? `http://localhost:8081${coverImages[currentCoverIndex].imageUrl}` : leadershipImg} 
-                alt="Leadership Team"
-                sx={{
-                  width: '100%',
-                  maxWidth: '825px',
-                  height: 'auto',
-                  borderRadius: '20px',
-                  objectFit: 'cover'
-                }}
-              />
+                <Box 
+                  component="img" 
+                  src={coverImages.length > 0 && coverImages[currentCoverIndex]?.imageUrl ? `http://localhost:8081${coverImages[currentCoverIndex].imageUrl}` : leadershipImg} 
+                  alt="Leadership Team"
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={onTouchEnd}
+                  sx={{
+                    width: '100%',
+                    maxWidth: '825px',
+                    height: 'auto',
+                    borderRadius: '20px',
+                    objectFit: 'cover',
+                    userSelect: 'none',
+                    touchAction: 'pan-y'
+                  }}
+                />
 
-              {/* Right Swipe Button */}
-              <IconButton
-                onClick={handleNextCover}
-                disabled={coverImages.length <= 1}
-                sx={{
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '25px',
-                  backgroundColor: 'rgba(224, 224, 224, 1)', // Light gray
-                  display: { xs: 'none', sm: 'flex' },
-                  opacity: coverImages.length <= 1 ? 0.5 : 1,
-                  '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
-                }}
-              >
-                <ArrowForwardIosIcon sx={{ color: 'rgba(117, 117, 117, 1)', fontSize: '18px' }} />
-              </IconButton>
+                {/* Right Swipe Button */}
+                <IconButton
+                  onClick={handleNextCover}
+                  disabled={coverImages.length <= 1}
+                  sx={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '25px',
+                    backgroundColor: 'rgba(224, 224, 224, 1)', // Light gray
+                    display: { xs: 'none', md: 'flex' },
+                    opacity: coverImages.length <= 1 ? 0.5 : 1,
+                    '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
+                  }}
+                >
+                  <ArrowForwardIosIcon sx={{ color: 'rgba(117, 117, 117, 1)', fontSize: '18px' }} />
+                </IconButton>
+              </Box>
+
+              {/* Mobile & Tablet Carousel Indicators (Dots) */}
+              {coverImages.length > 1 && (
+                <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center', gap: 1, mt: 2 }}>
+                  {coverImages.map((_, idx) => (
+                    <Box
+                      key={idx}
+                      onClick={() => setCurrentCoverIndex(idx)}
+                      sx={{
+                        width: currentCoverIndex === idx ? '20px' : '8px',
+                        height: '8px',
+                        borderRadius: '4px',
+                        backgroundColor: currentCoverIndex === idx ? 'rgba(0, 28, 166, 1)' : 'rgba(0, 0, 0, 0.2)',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer'
+                      }}
+                    />
+                  ))}
+                </Box>
+              )}
             </Box>
           </ScrollFocusReveal>
         </Box>

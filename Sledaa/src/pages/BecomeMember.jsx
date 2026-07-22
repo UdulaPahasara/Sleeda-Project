@@ -5,20 +5,24 @@ import {
   Typography,
   IconButton,
   Button,
+  CircularProgress,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import emailjs from '@emailjs/browser';
 
-const InputField = ({ label, placeholder, value, onChange, name, type = 'text' }) => (
+const InputField = ({ label, placeholder, value, onChange, name, type = 'text', required = false }) => (
   <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
     <Typography sx={{ 
       fontFamily: 'Poppins, sans-serif', 
       fontWeight: 500,
-      fontSize: '14px', 
+      fontSize: { xs: '13px', sm: '14px' }, 
       lineHeight: '20px',
       color: 'rgba(0, 0, 0, 1)', 
       mb: '6px' 
     }}>
-      {label}
+      {label} {required && '*'}
     </Typography>
     <Box
       component="input"
@@ -27,19 +31,20 @@ const InputField = ({ label, placeholder, value, onChange, name, type = 'text' }
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      required={required}
       sx={{
         width: '100%',
-        height: '50px',
+        height: { xs: '44px', sm: '50px' },
         backgroundColor: 'rgba(255, 255, 255, 1)',
         border: 'none',
         borderRadius: '5px',
         paddingTop: '6px',
         paddingBottom: '6px',
-        paddingLeft: '16px',
-        paddingRight: '16px',
+        paddingLeft: { xs: '12px', sm: '16px' },
+        paddingRight: { xs: '12px', sm: '16px' },
         fontFamily: 'Poppins, sans-serif',
         fontWeight: 400,
-        fontSize: '14px',
+        fontSize: { xs: '13px', sm: '14px' },
         color: '#333',
         outline: 'none',
         boxSizing: 'border-box',
@@ -61,26 +66,106 @@ const BecomeMember = ({ open, onClose }) => {
     batch: '',
     field: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setSnackbar(prev => ({ ...prev, open: false }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
-    alert("Membership request submitted!");
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      contactNumber: '',
-      registrationNumber: '',
-      batch: '',
-      field: ''
-    });
-    if (onClose) onClose();
+
+    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim()) {
+      setSnackbar({
+        open: true,
+        message: 'Please fill in all required fields.',
+        severity: 'warning'
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    const serviceId = import.meta.env.VITE_EMAILJS_MEMBER_SERVICE_ID || import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_MEMBER_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_MEMBER_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    const templateParams = {
+      // First Name
+      first_name: formData.firstName,
+      firstName: formData.firstName,
+      
+      // Last Name
+      last_name: formData.lastName,
+      lastName: formData.lastName,
+
+      // Combined Full Name
+      full_name: `${formData.firstName} ${formData.lastName}`,
+      from_name: `${formData.firstName} ${formData.lastName}`,
+      name: `${formData.firstName} ${formData.lastName}`,
+
+      // Email
+      email: formData.email,
+      from_email: formData.email,
+      user_email: formData.email,
+      reply_to: formData.email,
+
+      // Contact / Phone
+      contact_number: formData.contactNumber,
+      contactNumber: formData.contactNumber,
+      phone: formData.contactNumber,
+
+      // Registration Number
+      registration_number: formData.registrationNumber,
+      registrationNumber: formData.registrationNumber,
+
+      // Batch
+      batch: formData.batch,
+
+      // Field
+      field: formData.field
+    };
+
+    try {
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      setSnackbar({
+        open: true,
+        message: 'Thank you! Your membership request has been submitted successfully.',
+        severity: 'success'
+      });
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        contactNumber: '',
+        registrationNumber: '',
+        batch: '',
+        field: ''
+      });
+      setTimeout(() => {
+        if (onClose) onClose();
+      }, 1500);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSnackbar({
+        open: true,
+        message: 'Failed to submit membership request. Please check your EmailJS settings.',
+        severity: 'error'
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -93,13 +178,14 @@ const BecomeMember = ({ open, onClose }) => {
         paper: {
           sx: {
             width: '520px',
-            maxWidth: '95vw',
+            maxWidth: '92vw',
             backgroundColor: '#F0F0F0',
             borderRadius: '12px',
-            padding: '36px 32px',
+            padding: { xs: '24px 20px', sm: '36px 32px' },
             position: 'relative',
-            margin: '16px',
+            margin: { xs: '8px', sm: '16px' },
             boxSizing: 'border-box',
+            maxHeight: '90vh',
             overflowY: 'auto'
           }
         }
@@ -110,8 +196,8 @@ const BecomeMember = ({ open, onClose }) => {
         onClick={onClose}
         sx={{
           position: 'absolute',
-          top: '14px',
-          right: '14px',
+          top: { xs: '10px', sm: '14px' },
+          right: { xs: '10px', sm: '14px' },
           color: '#000',
           width: '26px',
           height: '26px',
@@ -125,9 +211,9 @@ const BecomeMember = ({ open, onClose }) => {
       <Typography sx={{ 
         fontFamily: 'Poppins, sans-serif', 
         fontWeight: 700, 
-        fontSize: '20px', 
+        fontSize: { xs: '18px', sm: '20px' }, 
         color: '#000', 
-        mb: '24px',
+        mb: { xs: '18px', sm: '24px' },
         textTransform: 'uppercase'
       }}>
         Become A Member
@@ -135,7 +221,7 @@ const BecomeMember = ({ open, onClose }) => {
 
       <Box component="form" onSubmit={handleSubmit}>
         {/* Row 1: First Name | Last Name */}
-        <Box sx={{ display: 'flex', gap: '16px', mb: '16px' }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: '12px', sm: '16px' }, mb: { xs: '12px', sm: '16px' } }}>
           <Box sx={{ flex: 1, minWidth: 0 }}>
             <InputField 
               label="First Name" 
@@ -157,7 +243,7 @@ const BecomeMember = ({ open, onClose }) => {
         </Box>
 
         {/* Row 2: Email | Contact Number */}
-        <Box sx={{ display: 'flex', gap: '16px', mb: '16px' }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: '12px', sm: '16px' }, mb: { xs: '12px', sm: '16px' } }}>
           <Box sx={{ flex: 1, minWidth: 0 }}>
             <InputField 
               label="Email" 
@@ -180,7 +266,7 @@ const BecomeMember = ({ open, onClose }) => {
         </Box>
 
         {/* Row 3: Registration Number | Batch */}
-        <Box sx={{ display: 'flex', gap: '16px', mb: '16px' }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: '12px', sm: '16px' }, mb: { xs: '12px', sm: '16px' } }}>
           <Box sx={{ flex: 1, minWidth: 0 }}>
             <InputField 
               label="Registration Number" 
@@ -202,7 +288,7 @@ const BecomeMember = ({ open, onClose }) => {
         </Box>
 
         {/* Row 4: Field — full width */}
-        <Box sx={{ mb: '16px' }}>
+        <Box sx={{ mb: { xs: '12px', sm: '16px' } }}>
           <InputField 
             label="Field" 
             placeholder="Enter Field" 
@@ -216,9 +302,10 @@ const BecomeMember = ({ open, onClose }) => {
         <Button
           type="submit"
           fullWidth
+          disabled={loading}
           sx={{
-            mt: '16px',
-            height: '52px',
+            mt: { xs: '14px', sm: '16px' },
+            height: { xs: '46px', sm: '52px' },
             backgroundColor: 'rgba(0, 28, 166, 1)',
             color: '#fff',
             borderRadius: '7px',
@@ -231,12 +318,27 @@ const BecomeMember = ({ open, onClose }) => {
             '&:hover': {
               backgroundColor: 'rgba(0, 20, 120, 1)',
               boxShadow: 'none',
+            },
+            '&.Mui-disabled': {
+              backgroundColor: 'rgba(0, 28, 166, 0.6)',
+              color: '#fff'
             }
           }}
         >
-          Submit
+          {loading ? <CircularProgress size={24} sx={{ color: '#fff' }} /> : 'Submit'}
         </Button>
       </Box>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%', fontFamily: 'Poppins' }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Dialog>
   );
 };
