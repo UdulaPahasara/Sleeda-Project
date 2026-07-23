@@ -11,22 +11,21 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
       sx={{
         width: '100%',
         maxWidth: '1240px',
-        backgroundColor: 'rgba(243, 243, 243, 1)', // Light gray background like the screenshot
+        backgroundColor: 'rgba(243, 243, 243, 1)', 
         borderRadius: '20px',
-        // Padding from design: pt: 21px, pb: 22px. 
-        // For horizontal padding, we make it responsive, but follow design for desktop:
+        
         pt: '21px',
         pb: '22px',
         pl: { xs: '22px', md: isImageLeft ? '22px' : '77px' },
         pr: { xs: '22px', md: isImageLeft ? '77px' : '22px' },
         display: 'flex',
         flexDirection: {
-          xs: 'column', // Mobile: text on top, image on bottom (as requested)
-          md: isImageLeft ? 'row' : 'row-reverse' // Desktop: zig-zag
+          xs: 'column', 
+          md: isImageLeft ? 'row' : 'row-reverse' 
         },
         alignItems: 'center',
-        gap: { xs: '30px', md: '62px' }, // gap: 62px from design for sub major box
-        margin: '0 auto', // Center the card
+        gap: { xs: '30px', md: '62px' }, 
+        margin: '0 auto', 
         boxSizing: 'border-box'
       }}
     >
@@ -38,7 +37,7 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
           maxWidth: { xs: '100%', md: '625px' }, 
           display: 'flex', 
           justifyContent: 'center',
-          order: { xs: 2, md: 1 } // Force image to the bottom on mobile
+          order: { xs: 2, md: 1 } 
         }}
       >
         <img
@@ -62,7 +61,7 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
           gap: '10px',
           width: '100%',
           maxWidth: { xs: '100%', md: '499px' },
-          order: { xs: 1, md: 2 }, // Force text to the top on mobile
+          order: { xs: 1, md: 2 }, 
           alignItems: { xs: 'center', md: 'flex-start' }
         }}
       >
@@ -72,7 +71,7 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
             fontWeight: 700,
             fontSize: { xs: '28px', md: '28px' },
             lineHeight: { xs: '34px', md: '40px' },
-            color: 'rgba(0, 28, 166, 1)', // Blue title from design screenshot
+            color: 'rgba(0, 28, 166, 1)', 
             textAlign: { xs: 'center', md: 'left' }
           }}
         >
