@@ -33,18 +33,7 @@ const Committee = () => {
       }
     };
 
-    const fetchPastMembers = async () => {
-      try {
-        const response = await fetch('http://localhost:8081/api/past-committee');
-        if (response.ok) {
-          const data = await response.json();
-          setPastMembers(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch past committee", error);
-      }
-    };
-
+    // removed global fetchPastMembers
     const fetchCoverImages = async () => {
       try {
         const response = await fetch('http://localhost:8081/api/committee-covers');
@@ -62,27 +51,24 @@ const Committee = () => {
         const response = await fetch('http://localhost:8081/api/past-committee-years');
         if (response.ok) {
           const data = await response.json();
-          setPastCommittees(data);
+          setPastCommittees(data.map(y => ({
+            id: y.yearLabel,
+            dbId: y.id,
+            yearName: y.yearName,
+            imageUrl: y.coverImageUrl ? `http://localhost:8081${y.coverImageUrl}` : null
+          })));
         }
       } catch (error) {
-        // Fallback to default year list if API not ready
-        setPastCommittees([
-          { id: '2025', yearName: '2025 Committee', imageUrl: null },
-          { id: '2024', yearName: '2024 Committee', imageUrl: null },
-          { id: '2023', yearName: '2023 Committee', imageUrl: null },
-          { id: '2022', yearName: '2022 Committee', imageUrl: null },
-        ]);
+        console.error("Failed to fetch past committee years", error);
       }
     };
 
     fetchCommittee();
-    fetchPastMembers();
     fetchCoverImages();
     fetchPastCommittees();
 
     const interval = setInterval(() => {
       fetchCommittee();
-      fetchPastMembers();
       fetchCoverImages();
       fetchPastCommittees();
     }, 5000);
@@ -90,11 +76,12 @@ const Committee = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch cover images for the selected past year when it changes
+  // Fetch cover images and members for the selected past year when it changes
   useEffect(() => {
     if (!selectedPastYear) {
       setPastYearCoverImages([]);
       setCurrentPastYearCoverIndex(0);
+      setPastMembers([]);
       return;
     }
     const fetchPastYearCovers = async () => {
@@ -111,8 +98,26 @@ const Committee = () => {
         setPastYearCoverImages([]);
       }
     };
+
+    const fetchPastMembersByYear = async () => {
+      const currentYear = pastCommittees.find(c => c.id === selectedPastYear);
+      if (!currentYear?.dbId) return;
+      try {
+        const response = await fetch(`http://localhost:8081/api/past-committee/year/${currentYear.dbId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setPastMembers(data);
+        } else {
+          setPastMembers([]);
+        }
+      } catch (error) {
+        setPastMembers([]);
+      }
+    };
+
     fetchPastYearCovers();
-  }, [selectedPastYear]);
+    fetchPastMembersByYear();
+  }, [selectedPastYear, pastCommittees]);
 
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
@@ -473,7 +478,7 @@ const Committee = () => {
                         maxWidth: '295px',
                         height: '306px',
                         backgroundColor: committee.imageUrl ? 'transparent' : 'rgba(0, 28, 166, 1)',
-                        backgroundImage: committee.imageUrl ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${committee.imageUrl.startsWith('blob:') ? committee.imageUrl : `http://localhost:8081${committee.imageUrl}`})` : 'none',
+                        backgroundImage: committee.imageUrl ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("${committee.imageUrl}")` : 'none',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         borderRadius: '10px',
