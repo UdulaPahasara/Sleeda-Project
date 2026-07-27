@@ -234,7 +234,7 @@ const Committee = () => {
                   sx={{
                     width: '100%',
                     maxWidth: '825px',
-                    height: 'auto',
+                    aspectRatio: '16/9',
                     borderRadius: '20px',
                     objectFit: 'cover',
                     userSelect: 'none',

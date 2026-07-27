@@ -80,8 +80,8 @@ const Home = () => {
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#fff', position: 'relative' }}>
 
-      {/* Navbar with transparent hero mode - handles its own scroll detection */}
-      <Navbar transparentOnTop />
+      {/* Navbar with default styling */}
+      <Navbar />
 
       {/* Hero Section */}
       <Box

@@ -45,7 +45,7 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
           alt={title}
           style={{
             width: '100%',
-            height: 'auto',
+            aspectRatio: '16/10',
             borderRadius: '16px',
             objectFit: 'cover'
           }}
