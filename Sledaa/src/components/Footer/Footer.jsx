@@ -122,7 +122,13 @@ const Footer = () => {
             </Link>
           </Typography>
           <Typography sx={{ fontFamily: 'Poppins', fontWeight: 500, fontSize: '9.74px', color: 'rgba(255, 255, 255, 0.7)', textAlign: { xs: 'center', md: 'right' } }}>
-            RESOURCES &nbsp;|&nbsp; ANNUAL REPORT
+            <Link component={RouterLink} to="/resources" underline="none" sx={{ color: 'inherit', '&:hover': { color: '#fff' } }}>
+              RESOURCES
+            </Link>
+            {' '}&nbsp;|&nbsp;{' '}
+            <Link component={RouterLink} to="/annual-report" underline="none" sx={{ color: 'inherit', '&:hover': { color: '#fff' } }}>
+              ANNUAL REPORT
+            </Link>
           </Typography>
         </Box>
       </Box>

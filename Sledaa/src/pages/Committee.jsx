@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, Button } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Navbar from '../components/Navbar/Navbar';
@@ -15,6 +15,7 @@ const Committee = () => {
   const [pastMembers, setPastMembers] = useState([]);
   const [coverImages, setCoverImages] = useState([]);
   const [currentCoverIndex, setCurrentCoverIndex] = useState(0);
+  const [selectedPastYear, setSelectedPastYear] = useState(null);
 
   useEffect(() => {
     const fetchCommittee = async () => {
@@ -375,92 +376,244 @@ const Committee = () => {
 
         {/* Meet Our Past Team Section */}
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '1260px', mx: 'auto', mt: { xs: '60px', md: '80px', lg: '100px' } }}>
-          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
-            <Typography sx={{
-              fontFamily: 'Poppins',
-              fontWeight: 600,
-              fontSize: '16px',
-              lineHeight: '22px',
-              color: 'rgba(0, 28, 166, 1)',
-              textAlign: 'center',
-              mb: 1
-            }}>
-              Meet Our Past Team
-            </Typography>
-            <Typography sx={{
-              fontFamily: 'Poppins',
-              fontWeight: 600,
-              fontSize: { xs: '22px', md: '25px' },
-              lineHeight: '30px',
-              color: 'rgba(0, 0, 0, 1)',
-              textAlign: 'center'
-            }}>
-              Serving Our Past Community
-            </Typography>
-          </Box>
+          {!selectedPastYear ? (
+            <>
+              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
+                <Typography sx={{
+                  fontFamily: 'Poppins',
+                  fontWeight: 600,
+                  fontSize: '16px',
+                  lineHeight: '22px',
+                  color: 'rgba(0, 28, 166, 1)',
+                  textAlign: 'center',
+                  mb: 1
+                }}>
+                  Meet Our Past Team
+                </Typography>
+                <Typography sx={{
+                  fontFamily: 'Poppins',
+                  fontWeight: 600,
+                  fontSize: { xs: '22px', md: '25px' },
+                  lineHeight: '30px',
+                  color: 'rgba(0, 0, 0, 1)',
+                  textAlign: 'center'
+                }}>
+                  Serving Our Past Community
+                </Typography>
+              </Box>
 
-          <Box sx={{ 
-            display: 'grid', 
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, 
-            gap: '40px',
-            width: '100%'
-          }}>
-            {pastMembers.length > 0 ? (
-              pastMembers.map((member, index) => (
-                <ScrollFocusReveal key={member.id} delay={`${index * 0.1}s`}>
-                  <Box sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center',
-                    width: '100%',
-                    maxWidth: '295px',
-                    mx: 'auto'
-                  }}>
+              <Box sx={{ 
+                display: 'grid', 
+                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, 
+                gap: '20px',
+                width: '100%'
+              }}>
+                {['2025', '2024', '2023', '2022'].map((year, index) => (
+                  <ScrollFocusReveal key={year} delay={`${index * 0.1}s`}>
                     <Box 
-                      component="img" 
-                      src={member.imageUrl ? `http://localhost:8081${member.imageUrl}` : ourTeamImg} 
-                      alt={member.name}
-                      sx={{
+                      onClick={() => setSelectedPastYear(year)}
+                      sx={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         width: '100%',
-                        height: '269.75px', // Exact height from spec
+                        maxWidth: '295px',
+                        height: '306px',
+                        backgroundColor: 'rgba(0, 28, 166, 1)',
                         borderRadius: '10px',
-                        objectFit: 'cover',
-                        backgroundColor: '#f5f5f5',
-                        mb: 2
-                      }}
-                    />
-                    <Typography sx={{
-                      fontFamily: 'Poppins',
+                        mx: 'auto',
+                        cursor: 'pointer',
+                        transition: 'transform 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateY(-5px)'
+                        }
+                      }}>
+                      <Typography sx={{
+                        fontFamily: 'Poppins',
+                        fontWeight: 700,
+                        fontSize: '20px',
+                        color: '#fff',
+                        textAlign: 'center'
+                      }}>
+                        {year}
+                      </Typography>
+                      <Typography sx={{
+                        fontFamily: 'Poppins',
+                        fontWeight: 600,
+                        fontSize: '20px',
+                        color: '#fff',
+                        textAlign: 'center'
+                      }}>
+                        Committee
+                      </Typography>
+                    </Box>
+                  </ScrollFocusReveal>
+                ))}
+              </Box>
+            </>
+          ) : (
+            <>
+              {/* Detailed Past Year View */}
+              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4 }}>
+                <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+                  <Button 
+                    startIcon={<ArrowBackIosNewIcon />} 
+                    onClick={() => setSelectedPastYear(null)} 
+                    sx={{ 
+                      color: 'rgba(0, 28, 166, 1)', 
+                      fontFamily: 'Poppins', 
                       fontWeight: 600,
-                      fontSize: '18px', // Scaled slightly to fit well, standard was 20px
-                      lineHeight: '22px',
-                      textAlign: 'center',
-                      textTransform: 'uppercase',
-                      color: '#000',
-                      mb: 0.5
-                    }}>
-                      {member.name}
+                      textTransform: 'none',
+                      fontSize: '16px'
+                    }}
+                  >
+                    Back
+                  </Button>
+                </Box>
+                <Typography sx={{
+                  fontFamily: 'Poppins',
+                  fontWeight: 600,
+                  fontSize: '16px',
+                  lineHeight: '22px',
+                  color: 'rgba(0, 28, 166, 1)',
+                  textAlign: 'center',
+                  mb: 4
+                }}>
+                  {selectedPastYear} Committee
+                </Typography>
+                
+                {/* Carousel for past year (using leadership placeholder for now) */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: '16px', md: '30px' }, width: '100%', justifyContent: 'center', mb: 8 }}>
+                  <IconButton
+                    sx={{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '25px',
+                      backgroundColor: 'rgba(224, 224, 224, 1)',
+                      display: { xs: 'none', md: 'flex' },
+                      '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
+                    }}
+                  >
+                    <ArrowBackIosNewIcon sx={{ color: 'rgba(117, 117, 117, 1)', fontSize: '18px' }} />
+                  </IconButton>
+
+                  <Box 
+                    component="img" 
+                    src={leadershipImg} 
+                    alt={`${selectedPastYear} Leadership`}
+                    sx={{
+                      width: '100%',
+                      maxWidth: '825px',
+                      aspectRatio: '16/9',
+                      borderRadius: '20px',
+                      objectFit: 'cover'
+                    }}
+                  />
+
+                  <IconButton
+                    sx={{
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '25px',
+                      backgroundColor: 'rgba(224, 224, 224, 1)',
+                      display: { xs: 'none', md: 'flex' },
+                      '&:hover': { backgroundColor: 'rgba(200, 200, 200, 1)' }
+                    }}
+                  >
+                    <ArrowForwardIosIcon sx={{ color: 'rgba(117, 117, 117, 1)', fontSize: '18px' }} />
+                  </IconButton>
+                </Box>
+
+                <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 5 }}>
+                  <Typography sx={{
+                    fontFamily: 'Poppins',
+                    fontWeight: 600,
+                    fontSize: '16px',
+                    lineHeight: '22px',
+                    color: 'rgba(0, 28, 166, 1)',
+                    textAlign: 'center',
+                    mb: 1
+                  }}>
+                    Meet {selectedPastYear} Committee
+                  </Typography>
+                  <Typography sx={{
+                    fontFamily: 'Poppins',
+                    fontWeight: 600,
+                    fontSize: { xs: '22px', md: '25px' },
+                    lineHeight: '30px',
+                    color: 'rgba(0, 0, 0, 1)',
+                    textAlign: 'center'
+                  }}>
+                    Committee Members
+                  </Typography>
+                </Box>
+
+                <Box sx={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, 
+                  gap: '40px',
+                  width: '100%'
+                }}>
+                  {pastMembers.length > 0 ? (
+                    pastMembers.map((member, index) => (
+                      <ScrollFocusReveal key={member.id} delay={`${index * 0.1}s`}>
+                        <Box sx={{ 
+                          display: 'flex', 
+                          flexDirection: 'column', 
+                          alignItems: 'center',
+                          width: '100%',
+                          maxWidth: '295px',
+                          mx: 'auto'
+                        }}>
+                          <Box 
+                            component="img" 
+                            src={member.imageUrl ? `http://localhost:8081${member.imageUrl}` : ourTeamImg} 
+                            alt={member.name}
+                            sx={{
+                              width: '100%',
+                              height: '269.75px',
+                              borderRadius: '10px',
+                              objectFit: 'cover',
+                              backgroundColor: '#f5f5f5',
+                              mb: 2
+                            }}
+                          />
+                          <Typography sx={{
+                            fontFamily: 'Poppins',
+                            fontWeight: 600,
+                            fontSize: '18px',
+                            lineHeight: '22px',
+                            textAlign: 'center',
+                            textTransform: 'uppercase',
+                            color: '#000',
+                            mb: 0.5
+                          }}>
+                            {member.name}
+                          </Typography>
+                          <Typography sx={{
+                            fontFamily: 'Poppins',
+                            fontWeight: 500,
+                            fontSize: '16px',
+                            lineHeight: '20px',
+                            textAlign: 'center',
+                            textTransform: 'capitalize',
+                            color: '#666'
+                          }}>
+                            {member.position}
+                          </Typography>
+                        </Box>
+                      </ScrollFocusReveal>
+                    ))
+                  ) : (
+                    <Typography sx={{ textAlign: 'center', fontFamily: 'Poppins', color: '#666', gridColumn: '1 / -1' }}>
+                      No {selectedPastYear} committee members found.
                     </Typography>
-                    <Typography sx={{
-                      fontFamily: 'Poppins',
-                      fontWeight: 500,
-                      fontSize: '16px',
-                      lineHeight: '20px',
-                      textAlign: 'center',
-                      textTransform: 'capitalize',
-                      color: '#666'
-                    }}>
-                      {member.position}
-                    </Typography>
-                  </Box>
-                </ScrollFocusReveal>
-              ))
-            ) : (
-              <Typography sx={{ textAlign: 'center', fontFamily: 'Poppins', color: '#666', gridColumn: '1 / -1' }}>
-                No past committee members found.
-              </Typography>
-            )}
-          </Box>
+                  )}
+                </Box>
+              </Box>
+            </>
+          )}
         </Box>
 
       </Box>
