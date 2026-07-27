@@ -14,7 +14,10 @@ const Committee = () => {
   const [members, setMembers] = useState([]);
   const [pastMembers, setPastMembers] = useState([]);
   const [coverImages, setCoverImages] = useState([]);
+  const [pastCommittees, setPastCommittees] = useState([]);
+  const [pastYearCoverImages, setPastYearCoverImages] = useState([]);
   const [currentCoverIndex, setCurrentCoverIndex] = useState(0);
+  const [currentPastYearCoverIndex, setCurrentPastYearCoverIndex] = useState(0);
   const [selectedPastYear, setSelectedPastYear] = useState(null);
 
   useEffect(() => {
@@ -54,18 +57,62 @@ const Committee = () => {
       }
     };
 
+    const fetchPastCommittees = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/api/past-committee-years');
+        if (response.ok) {
+          const data = await response.json();
+          setPastCommittees(data);
+        }
+      } catch (error) {
+        // Fallback to default year list if API not ready
+        setPastCommittees([
+          { id: '2025', yearName: '2025 Committee', imageUrl: null },
+          { id: '2024', yearName: '2024 Committee', imageUrl: null },
+          { id: '2023', yearName: '2023 Committee', imageUrl: null },
+          { id: '2022', yearName: '2022 Committee', imageUrl: null },
+        ]);
+      }
+    };
+
     fetchCommittee();
     fetchPastMembers();
     fetchCoverImages();
+    fetchPastCommittees();
 
     const interval = setInterval(() => {
       fetchCommittee();
       fetchPastMembers();
       fetchCoverImages();
+      fetchPastCommittees();
     }, 5000);
 
     return () => clearInterval(interval);
   }, []);
+
+  // Fetch cover images for the selected past year when it changes
+  useEffect(() => {
+    if (!selectedPastYear) {
+      setPastYearCoverImages([]);
+      setCurrentPastYearCoverIndex(0);
+      return;
+    }
+    const fetchPastYearCovers = async () => {
+      try {
+        const response = await fetch(`http://localhost:8081/api/past-committee-covers?year=${selectedPastYear}`);
+        if (response.ok) {
+          const data = await response.json();
+          setPastYearCoverImages(data);
+          setCurrentPastYearCoverIndex(0);
+        } else {
+          setPastYearCoverImages([]);
+        }
+      } catch (error) {
+        setPastYearCoverImages([]);
+      }
+    };
+    fetchPastYearCovers();
+  }, [selectedPastYear]);
 
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
@@ -408,10 +455,15 @@ const Committee = () => {
                 gap: '20px',
                 width: '100%'
               }}>
-                {['2025', '2024', '2023', '2022'].map((year, index) => (
-                  <ScrollFocusReveal key={year} delay={`${index * 0.1}s`}>
+                {(pastCommittees.length > 0 ? pastCommittees : [
+                  { id: '2025', yearName: '2025 Committee', imageUrl: null },
+                  { id: '2024', yearName: '2024 Committee', imageUrl: null },
+                  { id: '2023', yearName: '2023 Committee', imageUrl: null },
+                  { id: '2022', yearName: '2022 Committee', imageUrl: null },
+                ]).map((committee, index) => (
+                  <ScrollFocusReveal key={committee.id} delay={`${index * 0.1}s`}>
                     <Box 
-                      onClick={() => setSelectedPastYear(year)}
+                      onClick={() => setSelectedPastYear(committee.id)}
                       sx={{ 
                         display: 'flex', 
                         flexDirection: 'column', 
@@ -420,7 +472,10 @@ const Committee = () => {
                         width: '100%',
                         maxWidth: '295px',
                         height: '306px',
-                        backgroundColor: 'rgba(0, 28, 166, 1)',
+                        backgroundColor: committee.imageUrl ? 'transparent' : 'rgba(0, 28, 166, 1)',
+                        backgroundImage: committee.imageUrl ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${committee.imageUrl.startsWith('blob:') ? committee.imageUrl : `http://localhost:8081${committee.imageUrl}`})` : 'none',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                         borderRadius: '10px',
                         mx: 'auto',
                         cursor: 'pointer',
@@ -436,7 +491,7 @@ const Committee = () => {
                         color: '#fff',
                         textAlign: 'center'
                       }}>
-                        {year}
+                        {committee.id}
                       </Typography>
                       <Typography sx={{
                         fontFamily: 'Poppins',
@@ -483,9 +538,10 @@ const Committee = () => {
                   {selectedPastYear} Committee
                 </Typography>
                 
-                {/* Carousel for past year (using leadership placeholder for now) */}
+                {/* Carousel for past year cover images */}
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: '16px', md: '30px' }, width: '100%', justifyContent: 'center', mb: 8 }}>
                   <IconButton
+                    onClick={() => setCurrentPastYearCoverIndex(prev => (prev - 1 + (pastYearCoverImages.length || 1)) % (pastYearCoverImages.length || 1))}
                     sx={{
                       width: '50px',
                       height: '50px',
@@ -500,7 +556,13 @@ const Committee = () => {
 
                   <Box 
                     component="img" 
-                    src={leadershipImg} 
+                    src={
+                      pastYearCoverImages.length > 0
+                        ? (pastYearCoverImages[currentPastYearCoverIndex]?.imageUrl?.startsWith('blob:')
+                            ? pastYearCoverImages[currentPastYearCoverIndex].imageUrl
+                            : `http://localhost:8081${pastYearCoverImages[currentPastYearCoverIndex]?.imageUrl}`)
+                        : leadershipImg
+                    } 
                     alt={`${selectedPastYear} Leadership`}
                     sx={{
                       width: '100%',
@@ -512,6 +574,7 @@ const Committee = () => {
                   />
 
                   <IconButton
+                    onClick={() => setCurrentPastYearCoverIndex(prev => (prev + 1) % (pastYearCoverImages.length || 1))}
                     sx={{
                       width: '50px',
                       height: '50px',
