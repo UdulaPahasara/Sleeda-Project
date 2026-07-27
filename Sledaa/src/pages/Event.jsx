@@ -34,7 +34,7 @@ const Event = () => {
       {/* Hero Section */}
       <Box sx={{ 
         width: '100%', 
-        height: { xs: '300px', md: '370px' }, 
+        height: { xs: '400px', md: '370px' }, 
         backgroundImage: `url(${eventHeroBg})`, 
         backgroundSize: 'cover', 
         backgroundPosition: 'center', 

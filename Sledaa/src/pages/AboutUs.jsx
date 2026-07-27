@@ -45,7 +45,7 @@ const AboutUs = () => {
       {/* Hero Section */}
       <Box sx={{ 
         width: '100%', 
-        height: { xs: '400px', md: '500px', lg: '600px' }, 
+        height: { xs: '400px', md: '320px', lg: '370px' }, 
         backgroundImage: `url(${aboutHeroBg})`, 
         backgroundSize: 'cover', 
         backgroundPosition: 'center', 
@@ -57,7 +57,7 @@ const AboutUs = () => {
         px: 2
       }}>
         {/* Dark overlay for text readability */}
-        <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
+        <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0)' }} />
         
         <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px' }}>
           <Typography sx={{ 

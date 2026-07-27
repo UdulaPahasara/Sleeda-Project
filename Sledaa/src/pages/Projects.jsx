@@ -34,7 +34,7 @@ const Projects = () => {
       {/* Hero Section */}
       <Box sx={{ 
         width: '100%', 
-        height: { xs: '300px', md: '370px' }, 
+        height: { xs: '400px', md: '370px' }, 
         backgroundImage: `url(${projectHeroBg})`, 
         backgroundSize: 'cover', 
         backgroundPosition: 'center', 
@@ -46,7 +46,7 @@ const Projects = () => {
         px: 2
       }}>
         {/* Dark overlay for text readability */}
-        <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.7)' }} />
+        <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0)' }} />
         
         <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px', pt: { xs: '20px', md: '40px' } }}>
           <Typography sx={{ 
