@@ -5,7 +5,10 @@ import Footer from '../components/Footer/Footer';
 import aboutHeroBg from '../assets/AboutUs/abouthero.webp';
 import whoWeAreImg from '../assets/AboutUs/whoweare.webp';
 import executiveImg from '../assets/AboutUs/excetive.webp';
-import tokenTrustIcon from '../assets/Home/token_trust.webp';
+import education from '../assets/AboutUs/education.webp'
+import mdi_user from '../assets/AboutUs/mdi_user.webp'
+import headphone from '../assets/AboutUs/headphone.webp'
+import mdi_idea from '../assets/AboutUs/mdi_idea.webp'
 import InfoCard from '../components/common/InfoCard';
 import aboutUsAboveFooterImg from '../assets/AboutUs/aboveFooter.webp';
 
@@ -180,22 +183,22 @@ const AboutUs = () => {
           }}
         >
           <InfoCard 
-            icon={tokenTrustIcon}
+            icon={education}
             title="Professional & Educational Development"
             description="Organize skill-building programs, provide career guidance and opportunities, and promote knowledge sharing and mentorship among members."
           />
           <InfoCard 
-            icon={tokenTrustIcon}
+            icon={headphone}
             title="Welfare & Support"
             description="Provide welfare assistance during times of need and support newly migrated members in settling into Australian society."
           />
           <InfoCard 
-            icon={tokenTrustIcon}
+            icon={mdi_user}
             title="Employment & Career Support"
             description="Share job opportunities and career-related information while facilitating networking with professionals and industry partners."
           />
           <InfoCard 
-            icon={tokenTrustIcon}
+            icon={mdi_idea}
             title="Social & Cultural Engagement"
             description="Organize social and cultural events to promote Sri Lankan heritage and foster unity, friendship, and mutual respect among members."
           />

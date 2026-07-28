@@ -39,6 +39,7 @@ const Committee = () => {
         const response = await fetch('http://localhost:8081/api/committee-covers');
         if (response.ok) {
           const data = await response.json();
+          data.sort((a, b) => (b.isMain ? 1 : 0) - (a.isMain ? 1 : 0));
           setCoverImages(data);
         }
       } catch (error) {
@@ -75,12 +76,15 @@ const Committee = () => {
 
     return () => clearInterval(interval);
   }, []);
+  // Reset carousel index when a new past year is selected
+  useEffect(() => {
+    setCurrentPastYearCoverIndex(0);
+  }, [selectedPastYear]);
 
   // Fetch cover images and members for the selected past year when it changes
   useEffect(() => {
     if (!selectedPastYear) {
       setPastYearCoverImages([]);
-      setCurrentPastYearCoverIndex(0);
       setPastMembers([]);
       return;
     }
@@ -89,8 +93,8 @@ const Committee = () => {
         const response = await fetch(`http://localhost:8081/api/past-committee-covers?year=${selectedPastYear}`);
         if (response.ok) {
           const data = await response.json();
+          data.sort((a, b) => (b.isMain ? 1 : 0) - (a.isMain ? 1 : 0));
           setPastYearCoverImages(data);
-          setCurrentPastYearCoverIndex(0);
         } else {
           setPastYearCoverImages([]);
         }
@@ -385,7 +389,7 @@ const Committee = () => {
                       alt={member.name}
                       sx={{
                         width: '100%',
-                        height: '269.75px', // Exact height from spec
+                        height: '269.75px', 
                         borderRadius: '10px',
                         objectFit: 'cover',
                         backgroundColor: '#f5f5f5',
@@ -395,7 +399,7 @@ const Committee = () => {
                     <Typography sx={{
                       fontFamily: 'Poppins',
                       fontWeight: 600,
-                      fontSize: '18px', // Scaled slightly to fit well, standard was 20px
+                      fontSize: '18px', 
                       lineHeight: '22px',
                       textAlign: 'center',
                       textTransform: 'uppercase',
@@ -477,10 +481,7 @@ const Committee = () => {
                         width: '100%',
                         maxWidth: '295px',
                         height: '306px',
-                        backgroundColor: committee.imageUrl ? 'transparent' : 'rgba(0, 28, 166, 1)',
-                        backgroundImage: committee.imageUrl ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("${committee.imageUrl}")` : 'none',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                        backgroundColor: 'rgba(0, 28, 166, 1)',
                         borderRadius: '10px',
                         mx: 'auto',
                         cursor: 'pointer',
