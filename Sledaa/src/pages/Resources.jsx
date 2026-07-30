@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
+import useFetchData from '../hooks/useFetchData';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -8,25 +9,7 @@ import resourcesHero from '../assets/Resources/ResorcesHero.webp';
 import pdfIcon from '../assets/AnnualReport/pdf-icon-red.webp';
 
 const Resources = () => {
-  const [resources, setResources] = useState([]);
-
-  useEffect(() => {
-    const fetchResources = async () => {
-      try {
-        const response = await fetch('http://localhost:8081/api/resources');
-        if (response.ok) {
-          const data = await response.json();
-          setResources(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch resources", error);
-      }
-    };
-
-    fetchResources();
-    const interval = setInterval(fetchResources, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const resources = useFetchData('http://localhost:8081/api/resources');
 
   return (
     <Box sx={{ width: '100%', overflowX: 'hidden' }}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
+import useFetchData from '../hooks/useFetchData';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import newsHeroBg from '../assets/News/Newshero.webp';
@@ -7,25 +8,7 @@ import AlternatingFeatureCard from '../components/common/AlternatingFeatureCard'
 import newsReuseImage from '../assets/News/NewsReuseImg.webp';
 
 const News = () => {
-  const [news, setNews] = useState([]);
-
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await fetch('http://localhost:8081/api/news');
-        if (response.ok) {
-          const data = await response.json();
-          setNews(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch news", error);
-      }
-    };
-
-    fetchNews();
-    const interval = setInterval(fetchNews, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const news = useFetchData('http://localhost:8081/api/news');
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

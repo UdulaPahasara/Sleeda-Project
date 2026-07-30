@@ -391,7 +391,7 @@ const Committee = () => {
                         width: '100%',
                         height: '269.75px', 
                         borderRadius: '10px',
-                        objectFit: 'cover',
+                        objectFit: 'contain',
                         backgroundColor: '#f5f5f5',
                         mb: 2
                       }}
@@ -643,7 +643,7 @@ const Committee = () => {
                               width: '100%',
                               height: '269.75px',
                               borderRadius: '10px',
-                              objectFit: 'cover',
+                              objectFit: 'contain',
                               backgroundColor: '#f5f5f5',
                               mb: 2
                             }}

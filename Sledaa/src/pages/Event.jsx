@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Box, Typography } from '@mui/material';
+import useFetchData from '../hooks/useFetchData';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import eventHeroBg from '../assets/Event/Eventhero.webp';
@@ -7,25 +8,7 @@ import AlternatingFeatureCard from '../components/common/AlternatingFeatureCard'
 import reuseImage from '../assets/Event/ReuseImage.webp';
 
 const Event = () => {
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await fetch('http://localhost:8081/api/events');
-        if (response.ok) {
-          const data = await response.json();
-          setEvents(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch events", error);
-      }
-    };
-
-    fetchEvents();
-    const interval = setInterval(fetchEvents, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const events = useFetchData('http://localhost:8081/api/events');
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

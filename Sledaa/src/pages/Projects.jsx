@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Box, Typography } from '@mui/material';
+import useFetchData from '../hooks/useFetchData';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import projectHeroBg from '../assets/Project/Projecthero.webp';
@@ -7,25 +8,7 @@ import AlternatingFeatureCard from '../components/common/AlternatingFeatureCard'
 import projectReuseImg from '../assets/Project/ProjectReuseImg.webp';
 
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch('http://localhost:8081/api/projects');
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch projects", error);
-      }
-    };
-
-    fetchProjects();
-    const interval = setInterval(fetchProjects, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const projects = useFetchData('http://localhost:8081/api/projects');
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

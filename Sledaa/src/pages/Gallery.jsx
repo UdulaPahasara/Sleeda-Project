@@ -1,33 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
+import useFetchData from '../hooks/useFetchData';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import galleryHeroBg from '../assets/Gallery/Galleryhero.webp';
 
 const Gallery = () => {
-  const [albums, setAlbums] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchAlbums = async () => {
-    try {
-      const response = await fetch('http://localhost:8081/api/albums');
-      if (response.ok) {
-        const data = await response.json();
-        setAlbums(data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch albums", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchAlbums();
-    const interval = setInterval(fetchAlbums, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const albums = useFetchData('http://localhost:8081/api/albums');
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -97,12 +77,7 @@ const Gallery = () => {
           maxWidth: '1260px',
           width: '100%'
         }}>
-          {loading ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', p: 4, gridColumn: '1 / -1' }}>
-              <CircularProgress />
-            </Box>
-          ) : (
-            albums.map((item, index) => (
+          {albums.map((item, index) => (
               <Box 
                 key={index}
                 sx={{
@@ -151,7 +126,7 @@ const Gallery = () => {
                 </Typography>
               </Button>
             </Box>
-          )))}
+          ))}
         </Box>
       </Box>
 
