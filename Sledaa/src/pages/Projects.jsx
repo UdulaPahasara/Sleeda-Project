@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import SEO from '../components/SEO';
 import useFetchData from '../hooks/useFetchData';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -12,6 +13,11 @@ const Projects = () => {
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <SEO 
+        title="Projects"
+        description="Discover the initiatives and programs through which SLEDAA empowers engineering professionals."
+        url="/projects"
+      />
       <Navbar />
       
       {/* Hero Section */}

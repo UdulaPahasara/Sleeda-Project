@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
+import SEO from '../components/SEO';
 import useFetchData from '../hooks/useFetchData';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Navbar from '../components/Navbar/Navbar';
@@ -13,6 +14,11 @@ const Resources = () => {
 
   return (
     <Box sx={{ width: '100%', overflowX: 'hidden' }}>
+      <SEO 
+        title="Resources"
+        description="Access practical guides, templates, and useful resources for engineering diplomates."
+        url="/resources"
+      />
       <Navbar />
       
       {/* Hero Section */}

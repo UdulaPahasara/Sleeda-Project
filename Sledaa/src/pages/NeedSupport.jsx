@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import SEO from '../components/SEO';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import SupportForm from '../components/common/SupportForm';
@@ -9,6 +10,11 @@ import supportHero from '../assets/SupportingNewArrivals/SupportHero.png';
 const NeedSupport = () => {
   return (
     <Box sx={{ width: '100%', overflowX: 'hidden' }}>
+      <SEO 
+        title="Need Support"
+        description="Looking for guidance in your engineering career? SLEDAA is here to connect you with experienced professionals."
+        url="/need-support"
+      />
       <Navbar />
       
       {/* Hero Section */}

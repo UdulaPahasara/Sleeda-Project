@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
+import SEO from '../components/SEO';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -30,6 +31,11 @@ const AnnualReport = () => {
 
   return (
     <Box sx={{ width: '100%', overflowX: 'hidden' }}>
+      <SEO 
+        title="Annual Report"
+        description="Explore SLEDAA's annual reports to learn about our achievements and financial performance."
+        url="/annual-report"
+      />
       <Navbar />
       
       {/* Hero Section */}

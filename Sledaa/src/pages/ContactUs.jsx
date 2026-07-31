@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, CircularProgress, Snackbar, Alert } from '@mui/material';
+import SEO from '../components/SEO';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import ScrollFocusReveal from '../components/common/ScrollFocusReveal';
@@ -112,6 +113,11 @@ const ContactUs = () => {
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <SEO 
+        title="Contact Us"
+        description="Get in touch with SLEDAA. We're here to answer your questions and support your membership journey."
+        url="/contact-us"
+      />
       <Navbar />
       
       {/* Hero Section */}

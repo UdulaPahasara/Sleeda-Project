@@ -1,11 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import homeHeroBg from '../assets/Home/HomeHero.webp';
 import statsBg from '../assets/Home/yearOfServicebackground.webp';
 import tokenTrustIcon from '../assets/Home/token_trust.webp';
+import education from '../assets/Home/education.webp';
+import headphone from '../assets/Home/headphone.webp';
+import mdi_idea from '../assets/Home/mdi_idea.webp';
+import iconUser from '../assets/Home/mdi_user.webp'
 import whySleedaImg from '../assets/Home/WhySleedaMatters.webp';
 import flagUsaImg from '../assets/Home/flagUSA.webp';
 import ourMemo1 from '../assets/Home/ourmemo1.webp';
@@ -79,6 +84,11 @@ const Home = () => {
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: '#fff', position: 'relative' }}>
+      <SEO 
+        title="Home"
+        description="SLEDAA is dedicated to supporting Sri Lankan engineering diplomates through professional growth, career development, community welfare, and cultural engagement."
+        url="/"
+      />
 
       {/* Navbar with default styling */}
       <Navbar />
@@ -310,28 +320,28 @@ const Home = () => {
           
           {/* Card 1 */}
           <InfoCard 
-            icon={tokenTrustIcon} 
+            icon={mdi_idea} 
             title="Skill Development" 
             description="Enhance your technical expertise and leadership capabilities through professional workshops, seminars, industry presentations, and continuous learning opportunities designed to keep members ahead in an evolving engineering landscape."
           />
 
           {/* Card 2 */}
           <InfoCard 
-            icon={tokenTrustIcon} 
+            icon={education} 
             title="Education & Career Guidance" 
             description="Access mentoring, career advice, networking opportunities, and guidance for engineering recognition, professional registration, and career advancement across Australia."
           />
 
           {/* Card 3 */}
           <InfoCard 
-            icon={tokenTrustIcon} 
+            icon={headphone} 
             title="Welfare & Support" 
             description="Supporting members and their families through welfare initiatives, community assistance, mentoring, and practical support during important milestones and challenging times."
           />
 
           {/* Card 4 */}
           <InfoCard 
-            icon={tokenTrustIcon} 
+            icon={iconUser} 
             title="Social & Cultural Activities" 
             description="Celebrate Sri Lankan heritage while building lifelong friendships through family gatherings, cultural festivals, sporting events, networking functions, and community celebrations."
           />

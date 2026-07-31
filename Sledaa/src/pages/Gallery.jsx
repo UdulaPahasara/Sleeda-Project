@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, Button, CircularProgress } from '@mui/material';
+import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import useFetchData from '../hooks/useFetchData';
 import Navbar from '../components/Navbar/Navbar';
@@ -11,6 +12,11 @@ const Gallery = () => {
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <SEO 
+        title="Gallery"
+        description="View moments that shaped our journey in the SLEDAA gallery."
+        url="/gallery"
+      />
       <Navbar />
       
       {/* Hero Section */}

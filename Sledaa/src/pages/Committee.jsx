@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, IconButton, Button } from '@mui/material';
+import SEO from '../components/SEO';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Navbar from '../components/Navbar/Navbar';
@@ -175,6 +176,11 @@ const Committee = () => {
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <SEO 
+        title="Committee"
+        description="Meet the dedicated volunteers who lead SLEDAA with passion and integrity."
+        url="/committee"
+      />
       <Navbar />
       
       {/* Hero Section */}

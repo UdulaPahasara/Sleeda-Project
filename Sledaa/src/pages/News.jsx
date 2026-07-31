@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
+import SEO from '../components/SEO';
 import useFetchData from '../hooks/useFetchData';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -12,6 +13,11 @@ const News = () => {
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <SEO 
+        title="News"
+        description="Stay informed with the latest announcements, community initiatives, and updates from SLEDAA."
+        url="/news"
+      />
       <Navbar />
       
       {/* Hero Section */}

@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
+import SEO from '../components/SEO';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import aboutHeroBg from '../assets/AboutUs/abouthero.webp';
@@ -43,6 +44,11 @@ const AboutUs = () => {
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <SEO 
+        title="About Us"
+        description="Building a strong Sri Lankan engineering community in Australia since 1994. Learn more about SLEDAA."
+        url="/about-us"
+      />
       <Navbar />
       
       {/* Hero Section */}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, CircularProgress, Dialog, Button, IconButton } from '@mui/material';
+import SEO from '../components/SEO';
 import { useParams } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import Navbar from '../components/Navbar/Navbar';
@@ -102,6 +103,11 @@ const SleedaTechno = () => {
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <SEO 
+        title={album ? `${album.title} | Gallery` : "Gallery Album"}
+        description="View album photos in the SLEDAA gallery."
+        url={`/gallery/${id}`}
+      />
       <Navbar />
       
       {/* Hero Section */}
