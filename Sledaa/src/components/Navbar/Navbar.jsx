@@ -121,7 +121,7 @@ const Navbar = ({ transparentOnTop = false }) => {
           </Box>
 
           {/* Mobile Menu Icon (Left) */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, ml: 2 }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, ml: 0 }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -157,7 +157,8 @@ const Navbar = ({ transparentOnTop = false }) => {
                   <Box key={page}>
                     <MenuItem onClick={handleToggleMobileSupport}>
                       <Typography sx={{ 
-                        textAlign: 'center', 
+                        fontFamily: "'Poppins', sans-serif",
+                        textAlign: 'left', 
                         color: isActive(page) ? activeColor : 'black',
                         fontWeight: isActive(page) ? 700 : 400,
                         display: 'flex',
@@ -167,12 +168,12 @@ const Navbar = ({ transparentOnTop = false }) => {
                       </Typography>
                     </MenuItem>
                     {mobileSupportOpen && (
-                      <Box sx={{ pl: 2, backgroundColor: '#f9f9f9' }}>
+                      <Box sx={{ pl: 3, backgroundColor: '#f9f9f9' }}>
                         <MenuItem onClick={() => { handleCloseNavMenu(); }} component={Link} to="/supporting-new-arrivals/can-support">
-                          <Typography sx={{ color: 'black', fontSize: '14px' }}>Can Support</Typography>
+                          <Typography sx={{ fontFamily: "'Poppins', sans-serif", color: location.pathname === '/supporting-new-arrivals/can-support' ? activeColor : 'black', fontWeight: location.pathname === '/supporting-new-arrivals/can-support' ? 700 : 400, fontSize: '14px', textTransform: 'uppercase' }}>CAN SUPPORT</Typography>
                         </MenuItem>
                         <MenuItem onClick={() => { handleCloseNavMenu(); }} component={Link} to="/supporting-new-arrivals/need-support">
-                          <Typography sx={{ color: 'black', fontSize: '14px' }}>Need Support</Typography>
+                          <Typography sx={{ fontFamily: "'Poppins', sans-serif", color: location.pathname === '/supporting-new-arrivals/need-support' ? activeColor : 'black', fontWeight: location.pathname === '/supporting-new-arrivals/need-support' ? 700 : 400, fontSize: '14px', textTransform: 'uppercase' }}>NEED SUPPORT</Typography>
                         </MenuItem>
                       </Box>
                     )}
@@ -180,7 +181,8 @@ const Navbar = ({ transparentOnTop = false }) => {
                 ) : (
                   <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={page === 'HOME' ? '/' : `/${page.toLowerCase().replace(/ /g, '-')}`}>
                     <Typography sx={{ 
-                      textAlign: 'center', 
+                      fontFamily: "'Poppins', sans-serif",
+                      textAlign: 'left', 
                       color: isActive(page) ? activeColor : 'black',
                       fontWeight: isActive(page) ? 700 : 400
                     }}>
@@ -287,10 +289,10 @@ const Navbar = ({ transparentOnTop = false }) => {
                     sx={{ display: { xs: 'none', md: 'block' } }}
                   >
                     <MenuItem component={Link} to="/supporting-new-arrivals/can-support" onClick={handleCloseSupportMenu}>
-                      <Typography sx={{ fontFamily: 'Poppins', fontWeight: 500, fontSize: '14px', color: 'black' }}>CAN SUPPORT</Typography>
+                      <Typography sx={{ fontFamily: "'Poppins', sans-serif", fontWeight: location.pathname === '/supporting-new-arrivals/can-support' ? 700 : 500, fontSize: '14px', color: location.pathname === '/supporting-new-arrivals/can-support' ? activeColor : 'black' }}>CAN SUPPORT</Typography>
                     </MenuItem>
                     <MenuItem component={Link} to="/supporting-new-arrivals/need-support" onClick={handleCloseSupportMenu}>
-                      <Typography sx={{ fontFamily: 'Poppins', fontWeight: 500, fontSize: '14px', color: 'black' }}>NEED SUPPORT</Typography>
+                      <Typography sx={{ fontFamily: "'Poppins', sans-serif", fontWeight: location.pathname === '/supporting-new-arrivals/need-support' ? 700 : 500, fontSize: '14px', color: location.pathname === '/supporting-new-arrivals/need-support' ? activeColor : 'black' }}>NEED SUPPORT</Typography>
                     </MenuItem>
                   </Menu>
                 </Box>
