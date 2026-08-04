@@ -201,7 +201,7 @@ const Committee = () => {
         <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.7)' }} />
         
         <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px', pt: { xs: '20px', md: '40px' } }}>
-          <Typography sx={{ 
+          <Typography variant="h1" component="h1" sx={{ 
             fontFamily: 'Poppins', 
             fontWeight: 800, 
             fontSize: { xs: '40px', md: '50px', lg: '62.41px' }, 

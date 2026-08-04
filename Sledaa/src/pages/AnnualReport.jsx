@@ -69,7 +69,7 @@ const AnnualReport = () => {
           flexDirection: 'column', 
           alignItems: 'center' 
         }}>
-          <Typography sx={{
+          <Typography variant="h1" component="h1" sx={{
             fontFamily: 'Poppins',
             fontWeight: 800,
             fontSize: { xs: '32px', md: '48px' },

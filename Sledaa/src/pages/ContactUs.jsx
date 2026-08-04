@@ -13,9 +13,7 @@ import emailjs from '@emailjs/browser';
 import contactHeroBg from '../assets/ContactUs/contactHero.webp';
 import fbIcon from '../assets/ContactUs/Fb.webp';
 import instaIcon from '../assets/ContactUs/insta.webp';
-import whatsappIcon from '../assets/ContactUs/whatsapp.webp';
 import mailIcon from '../assets/ContactUs/mail.webp';
-import callIcon from '../assets/ContactUs/call.webp';
 import locationIcon from '../assets/ContactUs/location.webp';
 
 const ContactUs = () => {
@@ -138,7 +136,7 @@ const ContactUs = () => {
         <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.7)' }} />
         
         <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px', pt: { xs: '20px', md: '40px' } }}>
-          <Typography sx={{ 
+          <Typography variant="h1" component="h1" sx={{ 
             fontFamily: 'Poppins', 
             fontWeight: 800, 
             fontSize: { xs: '40px', md: '50px', lg: '62.41px' }, 
@@ -232,14 +230,11 @@ const ContactUs = () => {
             </Typography>
             
             <Box sx={{ display: 'flex', gap: '22.07px' }}>
-              <Box component="a" href="#" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Box component="a" href="https://www.facebook.com/share/1EQHQC9n1d/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <img src={fbIcon} alt="Facebook" style={{ width: '27.59px', height: '27.59px' }} />
               </Box>
               <Box component="a" href="#" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <img src={instaIcon} alt="Instagram" style={{ width: '27.59px', height: '27.59px' }} />
-              </Box>
-              <Box component="a" href="#" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <img src={whatsappIcon} alt="WhatsApp" style={{ width: '27.59px', height: '27.59px' }} />
               </Box>
             </Box>
           </Box>
@@ -467,18 +462,11 @@ const ContactUs = () => {
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '150px' }}>
                 <Box component="img" src={mailIcon} alt="Email" sx={{ width: '60px', height: '60px', mb: 2 }} />
                 <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '16px', color: 'rgba(0, 28, 166, 1)', mb: 1 }}>Email Us</Typography>
-                <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: '12px', color: '#000' }}>info@sledaa.org</Typography>
+                <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: '12px', color: '#000' }}>info@sledaa.com</Typography>
               </Box>
             </ScrollFocusReveal>
 
-            {/* Contact */}
-            <ScrollFocusReveal delay="0.1s">
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '150px' }}>
-                <Box component="img" src={callIcon} alt="Call" sx={{ width: '60px', height: '60px', mb: 2 }} />
-                <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '16px', color: 'rgba(0, 28, 166, 1)', mb: 1 }}>Contact Us</Typography>
-                <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: '12px', color: '#000' }}>+61 4 0000 0000</Typography>
-              </Box>
-            </ScrollFocusReveal>
+
 
             {/* Visit */}
             <ScrollFocusReveal delay="0.2s">

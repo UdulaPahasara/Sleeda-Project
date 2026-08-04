@@ -29,20 +29,19 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
         boxSizing: 'border-box'
       }}
     >
-      {/* Image Container */}
       <Box 
         sx={{ 
           flex: 1, 
           width: '100%',
           maxWidth: { xs: '100%', md: '625px' }, 
           display: 'flex', 
-          justifyContent: 'center',
-          order: { xs: 2, md: 1 } 
+          justifyContent: 'center'
         }}
       >
         <img
           src={image}
           alt={title}
+          loading="lazy"
           style={{
             width: '100%',
             aspectRatio: '16/10',
@@ -52,7 +51,6 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
         />
       </Box>
 
-      {/* Text Container */}
       <Box 
         sx={{ 
           flex: 1, 
@@ -61,7 +59,6 @@ const AlternatingFeatureCard = ({ image, title, description, imagePosition = 'le
           gap: '10px',
           width: '100%',
           maxWidth: { xs: '100%', md: '499px' },
-          order: { xs: 1, md: 2 }, 
           alignItems: { xs: 'center', md: 'flex-start' }
         }}
       >

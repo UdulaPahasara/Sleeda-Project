@@ -69,7 +69,7 @@ const AboutUs = () => {
         <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0)' }} />
         
         <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px' }}>
-          <Typography sx={{ 
+          <Typography variant="h1" component="h1" sx={{ 
             fontFamily: 'Poppins', 
             fontWeight: 800, 
             fontSize: { xs: '40px', md: '50px', lg: '62.41px' }, 
@@ -109,7 +109,7 @@ const AboutUs = () => {
           </Box>
 
           {/* Right: Text */}
-          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', maxWidth: '590px', alignItems: { xs: 'center', sm: 'flex-start' }, textAlign: { xs: 'center', sm: 'left' } }}>
+          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', maxWidth: '590px', alignItems: { xs: 'center', sm: 'flex-start' }, textAlign: { xs: 'center', sm: 'left' }, mt: { sm: '-40px', md: '-60px', lg: '-80px' } }}>
             <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: { xs: '18px', sm: '20px', md: '22px' }, lineHeight: '22px', color: 'rgba(0, 28, 166, 1)', mb: '16px' }}>
               Who We Are
             </Typography>
@@ -128,15 +128,15 @@ const AboutUs = () => {
       </Box>
 
       {/* Our Executive Committee Section */}
-      <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', pt: { xs: '60px' } }}>
+      <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', pt: { xs: '60px',lg:'0px'} }}>
         <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '16px', lineHeight: '22px', color: 'rgba(0, 28, 166, 1)', mb: 1, textAlign: 'center' }}>
-          Our Journey
+          Our Team & Community
         </Typography>
         <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: { xs: '22px', md: '25px' }, lineHeight: '30px', color: 'rgba(0, 0, 0, 1)', mb: 2, textAlign: 'center' }}>
-          Our Executive Committee
+          The SLEDAA Team
         </Typography>
         <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: { xs: '14px', md: '16px' }, lineHeight: '20px', color: 'rgba(117, 117, 117, 1)', mb: 4, textAlign: 'center', maxWidth: '1009px', px: 2 }}>
-          Founded in Melbourne in 1994, SLEDAA was created to help newly migrated engineering diplomates overcome professional and social challenges. Over the past 30+ years, the association has grown into a strong community through workshops, welfare initiatives, social events, and educational support programs. In 2023, SLEDAA proudly celebrated its 30th Anniversary, marking three decades of service and unity.
+          SLEDAA is powered by a dedicated network of Sri Lankan engineering diplomates and volunteers across Australia. Working together with shared passion and purpose, our team is committed to supporting our members, fostering professional growth, organizing impactful community events, and building strong professional networks.
         </Typography>
 
         {/* Image and Blue Background Container */}
@@ -260,7 +260,7 @@ const AboutUs = () => {
           }}>
           {/* Column 1 */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            {['Rohana Karunarathna (2013)', 'Sunil Weerasooriya (2014)', 'Vinitius Perera (2015)', 'Marcellus Fernando (2016)', 'J. C. K. Senevirathne (2017)'].map((leader) => (
+            {['Rohana Karunarathna', 'Sunil Weerasooriya', 'Vinitius Perera', 'Marcellus Fernando', 'J. C. K. Senevirathne'].map((leader) => (
               <Box key={leader} sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <Box sx={{ width: '20px', height: '20px', minWidth: '20px', backgroundColor: 'rgba(0, 28, 166, 1)', borderRadius: '5px' }} />
                 <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: { xs: '16px', md: '18px' }, color: 'rgba(0, 0, 0, 1)' }}>
@@ -272,7 +272,7 @@ const AboutUs = () => {
 
           {/* Column 2 */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            {['Ranjith Gunawardena (2018)', 'Ranjan Perera (2019)', 'Ivan Fernando (2020)', 'Ajith Rajapaksa (2021)', 'Gajaba Silva (2022)'].map((leader) => (
+            {['Ranjith Gunawardena', 'Ranjan Perera', 'Ivan Fernando', 'Ajith Rajapaksa', 'Gajaba Silva'].map((leader) => (
               <Box key={leader} sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <Box sx={{ width: '20px', height: '20px', minWidth: '20px', backgroundColor: 'rgba(0, 28, 166, 1)', borderRadius: '5px' }} />
                 <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: { xs: '16px', md: '18px' }, color: 'rgba(0, 0, 0, 1)' }}>
@@ -284,7 +284,7 @@ const AboutUs = () => {
 
           {/* Column 3 */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            {['Rohan Wimalasuriya (2023)', 'Sumith Vidanagamage (2024)', 'Chandana Basnayake (2025)', 'Thilina Wanasinghe (2026)'].map((leader) => (
+            {['Rohan Wimalasuriya', 'Sumith Vidanagamage', 'Chandana Basnayake', 'Thilina Wanasinghe'].map((leader) => (
               <Box key={leader} sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <Box sx={{ width: '20px', height: '20px', minWidth: '20px', backgroundColor: 'rgba(0, 28, 166, 1)', borderRadius: '5px' }} />
                 <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, fontSize: { xs: '16px', md: '18px' }, color: 'rgba(0, 0, 0, 1)' }}>
@@ -298,7 +298,7 @@ const AboutUs = () => {
 
         {/* Above Footer Image */}
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <img src={aboutUsAboveFooterImg} alt="SLEDAA Community Silhouette" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          <img src={aboutUsAboveFooterImg} alt="SLEDAA Community Silhouette" loading="lazy" style={{ width: '100%', height: 'auto', display: 'block' }} />
         </Box>
       </Box>
 

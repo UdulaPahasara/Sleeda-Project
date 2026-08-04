@@ -149,7 +149,7 @@ const Home = () => {
                   textTransform: 'capitalize',
                 }}
               >
-                SLEDAA.ORG
+                SLEDAA.COM
               </Typography>
             </Box>
           </ScrollFocusReveal>
@@ -246,31 +246,31 @@ const Home = () => {
             py: { xs: 4, md: 0 }
           }}
         >
-          <Box sx={{ display: 'flex', justifyContent: 'space-around', width: '701px', maxWidth: '100%', flexWrap: 'wrap', gap: { xs: 4, md: 0 },pb:1 }}>
+          <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'space-around' }, width: '701px', maxWidth: '100%', flexWrap: 'wrap', gap: { xs: 2, md: 0 }, pb: 1 }}>
             
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 700, fontSize: '51.62px', color: 'rgba(0, 28, 166, 1)', lineHeight: '51.62px' }}>
+            <Box sx={{ textAlign: 'center', width: { xs: '45%', md: 'auto' } }}>
+              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 700, fontSize: { xs: '36px', sm: '42px', md: '51.62px' }, color: 'rgba(0, 28, 166, 1)', lineHeight: { xs: '36px', sm: '42px', md: '51.62px' } }}>
                 30 +
               </Typography>
-              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '20.65px', color: '#000', lineHeight: '30.97px', mt: 1 }}>
+              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: { xs: '14px', sm: '16px', md: '20.65px' }, color: '#000', lineHeight: { xs: '20px', md: '30.97px' }, mt: { xs: 0.5, md: 1 } }}>
                 Years of Service
               </Typography>
             </Box>
 
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 700, fontSize: '51.62px', color: 'rgba(0, 28, 166, 1)', lineHeight: '51.62px' }}>
+            <Box sx={{ textAlign: 'center', width: { xs: '45%', md: 'auto' } }}>
+              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 700, fontSize: { xs: '36px', sm: '42px', md: '51.62px' }, color: 'rgba(0, 28, 166, 1)', lineHeight: { xs: '36px', sm: '42px', md: '51.62px' } }}>
                 100 +
               </Typography>
-              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '20.65px', color: '#000', lineHeight: '30.97px', mt: 1 }}>
+              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: { xs: '14px', sm: '16px', md: '20.65px' }, color: '#000', lineHeight: { xs: '20px', md: '30.97px' }, mt: { xs: 0.5, md: 1 } }}>
                 Active Members
               </Typography>
             </Box>
 
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 700, fontSize: '51.62px', color: 'rgba(0, 28, 166, 1)', lineHeight: '51.62px' }}>
+            <Box sx={{ textAlign: 'center', width: { xs: '100%', md: 'auto' }, mt: { xs: 2, md: 0 } }}>
+              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 700, fontSize: { xs: '36px', sm: '42px', md: '51.62px' }, color: 'rgba(0, 28, 166, 1)', lineHeight: { xs: '36px', sm: '42px', md: '51.62px' } }}>
                 50 +
               </Typography>
-              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: '20.65px', color: '#000', lineHeight: '30.97px', mt: 1 }}>
+              <Typography sx={{ fontFamily: 'Poppins', fontWeight: 600, fontSize: { xs: '14px', sm: '16px', md: '20.65px' }, color: '#000', lineHeight: { xs: '20px', md: '30.97px' }, mt: { xs: 0.5, md: 1 } }}>
                 Workshops & Events
               </Typography>
             </Box>
