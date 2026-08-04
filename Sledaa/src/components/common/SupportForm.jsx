@@ -63,8 +63,8 @@ const SupportForm = ({ formType = 'canSupport' }) => {
       : (import.meta.env.VITE_EMAILJS_CAN_SUPPORT_SERVICE_ID || import.meta.env.VITE_EMAILJS_SERVICE_ID);
 
     const templateId = isNeedSupport
-      ? (import.meta.env.VITE_EMAILJS_NEED_SUPPORT_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_SERVICE_ID)
-      : (import.meta.env.VITE_EMAILJS_CAN_SUPPORT_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_SERVICE_ID);
+      ? (import.meta.env.VITE_EMAILJS_NEED_SUPPORT_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_TEMPLATE_ID)
+      : (import.meta.env.VITE_EMAILJS_CAN_SUPPORT_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
 
     const publicKey = isNeedSupport
       ? (import.meta.env.VITE_EMAILJS_NEED_SUPPORT_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC_KEY)

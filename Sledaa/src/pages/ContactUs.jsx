@@ -263,7 +263,7 @@ const ContactUs = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 fullWidth 
-                InputProps={{ sx: { pb: 1, fontFamily: 'Poppins' } }} 
+                slotProps={{ input: { sx: { pb: 1, fontFamily: 'Poppins' } } }} 
               />
 
               {/* Country Flag Phone Input Field */}
@@ -373,7 +373,7 @@ const ContactUs = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 fullWidth 
-                InputProps={{ sx: { pb: 1, fontFamily: 'Poppins' } }} 
+                slotProps={{ input: { sx: { pb: 1, fontFamily: 'Poppins' } } }} 
               />
               <TextField 
                 variant="standard" 
@@ -384,7 +384,7 @@ const ContactUs = () => {
                 value={formData.inquiry}
                 onChange={handleInputChange}
                 fullWidth 
-                InputProps={{ sx: { pb: 1, fontFamily: 'Poppins' } }} 
+                slotProps={{ input: { sx: { pb: 1, fontFamily: 'Poppins' } } }} 
               />
               
               <Button 
