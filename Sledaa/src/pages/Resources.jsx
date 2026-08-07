@@ -109,9 +109,17 @@ const Resources = () => {
                       {resource.title}
                     </Typography>
                     
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <img src={pdfIcon} alt="PDF" style={{ width: '55px', height: '55px', objectFit: 'contain' }} />
-                      <Typography sx={{ fontFamily: 'Poppins', fontWeight: 500, fontSize: '14px', color: '#a0a0a0' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, overflow: 'hidden' }}>
+                      <img src={pdfIcon} alt="PDF" style={{ width: '55px', height: '55px', objectFit: 'contain', flexShrink: 0 }} />
+                      <Typography sx={{ 
+                        fontFamily: 'Poppins', 
+                        fontWeight: 500, 
+                        fontSize: '14px', 
+                        color: '#a0a0a0',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                      }}>
                         {resource.filename}
                       </Typography>
                     </Box>
